@@ -10,20 +10,20 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-#import "IGListAdapterInternal.h"
-#import "IGListTestOffsettingLayout.h"
-#import "IGTestCell.h"
-#import "IGTestDelegateController.h"
-#import "IGTestDelegateDataSource.h"
-#import "IGTestObject.h"
-#import "IGListTestCase.h"
+#import "IGSTListAdapterInternal.h"
+#import "IGSTListTestOffsettingLayout.h"
+#import "IGSTTestCell.h"
+#import "IGSTTestDelegateController.h"
+#import "IGSTTestDelegateDataSource.h"
+#import "IGSTTestObject.h"
+#import "IGSTListTestCase.h"
 
-@interface IGListAdapterE2ETests : IGListTestCase
+@interface IGSTListAdapterE2ETests : IGListTestCase
 @end
 
-@implementation IGListAdapterE2ETests
+@implementation IGSTListAdapterE2ETests
 
 - (void)setUp {
     self.workingRangeSize = 2;
@@ -173,10 +173,10 @@
                              ]];
 
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @3;
         [batchContext insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:2]];
     } completion:^(BOOL finished2) {
@@ -195,10 +195,10 @@
                              ]];
 
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @1;
         [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:^(BOOL finished2) {
@@ -219,10 +219,10 @@
     XCTAssertEqualObjects(cell.label.text, @"a");
 
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @"c";
         [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:^(BOOL finished2) {
@@ -241,10 +241,10 @@
                              ]];
 
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @3;
         [batchContext reloadSectionController:sectionController];
     } completion:^(BOOL finished2) {
@@ -270,13 +270,13 @@
                                 object2,
                                 ];
 
-    IGListSectionController *sectionController1 = [self.adapter sectionControllerForObject:object1];
-    IGListSectionController *sectionController2 = [self.adapter sectionControllerForObject:object2];
+    IGSTListSectionController *sectionController1 = [self.adapter sectionControllerForObject:object1];
+    IGSTListSectionController *sectionController2 = [self.adapter sectionControllerForObject:object2];
 
     [self.adapter performUpdatesAnimated:YES completion:nil];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController1.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController1.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object1.value = @1;
         object2.value = @3;
         [batchContext deleteInSectionController:sectionController1 atIndexes:[NSIndexSet indexSetWithIndex:0]];
@@ -305,7 +305,7 @@
                                 object, // moved from 0 to 1
                                 ];
 
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     // queue the update that performs the section move
     [self.adapter performUpdatesAnimated:YES completion:nil];
@@ -313,7 +313,7 @@
     XCTestExpectation *expectation = genExpectation;
 
     // queue an item update that gets batched with the section move
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @3;
         [batchContext insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:2]];
     } completion:^(BOOL finished2) {
@@ -338,12 +338,12 @@
                                 genTestObject(@2, @2),
                                 ];
 
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     [self.adapter performUpdatesAnimated:YES completion:nil];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @1;
         [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:^(BOOL finished2) {
@@ -381,7 +381,7 @@
                             genTestObject(@2, @3),
                             ]];
 
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
 
     self.dataSource.objects = @[
                                 genTestObject(@2, @3),
@@ -391,7 +391,7 @@
     [self.adapter performUpdatesAnimated:YES completion:nil];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:^(BOOL finished2) {
         XCTAssertEqual([self.collectionView numberOfSections], 2);
@@ -408,7 +408,7 @@
                              genTestObject(@2, @3),
                              ]];
 
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
 
     self.dataSource.objects = @[
                                 genTestObject(@2, @3),
@@ -417,7 +417,7 @@
     [self.adapter performUpdatesAnimated:YES completion:nil];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:^(BOOL finished2) {
         XCTAssertEqual([self.collectionView numberOfSections], 1);
@@ -435,8 +435,8 @@
 
     // grab section controllers before updating the objects
     NSArray *beforeupdateObjects = self.dataSource.objects;
-    IGListSectionController *sectionController1 = [self.adapter sectionControllerForObject:beforeupdateObjects.firstObject];
-    IGListSectionController *sectionController2 = [self.adapter sectionControllerForObject:beforeupdateObjects.lastObject];
+    IGSTListSectionController *sectionController1 = [self.adapter sectionControllerForObject:beforeupdateObjects.firstObject];
+    IGSTListSectionController *sectionController2 = [self.adapter sectionControllerForObject:beforeupdateObjects.lastObject];
 
     self.dataSource.objects = @[
                                 genTestObject(@1, @3), // new instance, value changed from 2 to 3
@@ -540,9 +540,9 @@
                              genTestObject(@2, @2),
                              ]];
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @3;
         [batchContext insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:2]];
     } completion:nil];
@@ -616,7 +616,7 @@
     IGTestDelegateController *sectionController = [self.adapter sectionControllerForObject:object];
 
     // using performBatchAnimated: to mimic re-entrant item reload
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @4; // from @1
         [self.adapter reloadObjects:@[object]];
     } completion:nil];
@@ -652,7 +652,7 @@
 
     XCTestExpectation *expectation = genExpectation;
     // using performBatchAnimated: to mimic re-entrant item reload
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @6; // from @1
 
         [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
@@ -669,7 +669,7 @@
 - (void)test_whenPerformingUpdates_withoutSettingDataSource_thatCompletionBlockExecutes {
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     adapter.collectionView = collectionView;
 
     self.dataSource.objects = @[
@@ -719,8 +719,8 @@
 
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.window.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     [self.window addSubview:collectionView];
-    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+    IGSTListAdapterUpdater *updater = [IGSTListAdapterUpdater new];
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:updater viewController:nil];
     adapter.dataSource = self.dataSource;
     adapter.collectionView = collectionView;
     [collectionView layoutSubviews];
@@ -756,8 +756,8 @@
     // if the adapter keeps a strong ref to self and uses an async method, this will hit asserts that a list item
     // controller is nil. the adapter should be released and the completion block never called.
     @autoreleasepool {
-        IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:2];
+        IGSTListAdapterUpdater *updater = [[IGSTListAdapterUpdater alloc] init];
+        IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:updater viewController:nil workingRangeSize:2];
         adapter.collectionView = self.collectionView;
         adapter.dataSource = self.dataSource;
         [adapter performUpdatesAnimated:NO completion:^(BOOL finished) {
@@ -787,7 +787,7 @@
                                 genTestObject(@2, @2),
                                 ];
 
-    id mockDisplayHandler = [OCMockObject mockForProtocol:@protocol(IGListAdapterDelegate)];
+    id mockDisplayHandler = [OCMockObject mockForProtocol:@protocol(IGSTListAdapterDelegate)];
     self.adapter.delegate = mockDisplayHandler;
 
     [[mockDisplayHandler expect] listAdapter:self.adapter didEndDisplayingObject:object atIndex:0];
@@ -1025,10 +1025,10 @@
                              genTestObject(@3, @1),
                              ]];
 
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     XCTestExpectation *expectation = genExpectation;
-    [section.collectionContext performBatchAnimated:NO updates:^(id<IGListBatchContext> batchContext) {
+    [section.collectionContext performBatchAnimated:NO updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]];
         [batchContext insertInSectionController:section atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]];
         [batchContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 4)]];
@@ -1046,10 +1046,10 @@
                              genTestObject(@3, @1),
                              ]];
 
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     XCTestExpectation *expectation1 = genExpectation;
-    [section.collectionContext performBatchAnimated:NO updates:^(id<IGListBatchContext> batchContext) {
+    [section.collectionContext performBatchAnimated:NO updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 4)]];
     } completion:^(BOOL finished) {
         [expectation1 fulfill];
@@ -1077,10 +1077,10 @@
                              genTestObject(@3, @1),
                              ]];
 
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     XCTestExpectation *expectation1 = genExpectation;
-    [section.collectionContext performBatchAnimated:NO updates:^(id<IGListBatchContext> batchContext) {
+    [section.collectionContext performBatchAnimated:NO updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext reloadInSectionController:section atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 4)]];
     } completion:^(BOOL finished) {
         [expectation1 fulfill];
@@ -1125,7 +1125,7 @@
 - (void)test_whenQueuingUpdate_withSectionControllerBatchUpdate_thatSectionControllerNotRetained {
     __weak id weakSectionController = nil;
     @autoreleasepool {
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+        IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
         IGTestDelegateDataSource *dataSource = [IGTestDelegateDataSource new];
         IGTestObject *object = genTestObject(@1, @2);
         dataSource.objects = @[object];
@@ -1136,9 +1136,9 @@
         XCTAssertEqual([collectionView numberOfSections], 1);
         XCTAssertEqual([collectionView numberOfItemsInSection:0], 2);
 
-        IGListSectionController *section = [adapter sectionControllerForObject:object];
+        IGSTListSectionController *section = [adapter sectionControllerForObject:object];
 
-        [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+        [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
             object.value = @3;
             [batchContext insertInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:0]];
         } completion:^(BOOL finished) {}];
@@ -1160,8 +1160,8 @@
                              ]];
 
     __block BOOL executed = NO;
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext moveInSectionController:section fromIndex:0 toIndex:1];
         executed = YES;
     } completion:nil];
@@ -1187,8 +1187,8 @@
                              ]];
 
     __block BOOL executed = NO;
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext moveInSectionController:section fromIndex:0 toIndex:1];
         executed = YES;
     } completion:nil];
@@ -1212,8 +1212,8 @@
                              ]];
 
     __block BOOL executed = NO;
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext moveInSectionController:section fromIndex:0 toIndex:1];
         executed = YES;
     } completion:nil];
@@ -1235,8 +1235,8 @@
                              ]];
 
     __block BOOL executed = NO;
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext moveInSectionController:section fromIndex:0 toIndex:1];
         executed = YES;
     } completion:nil];
@@ -1266,8 +1266,8 @@
     cell2.label.text = @"bar";
 
     XCTestExpectation *expectation = genExpectation;
-    IGListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext moveInSectionController:section fromIndex:0 toIndex:1];
     } completion:^(BOOL finished) {
         IGTestCell *movedCell1 = (IGTestCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
@@ -1310,7 +1310,7 @@
 }
 
 - (void)test_whenAdaptersSwapCollectionViews_thatOldAdapterDoesntUpdateOldCollectionView {
-    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter1 = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource1 = [IGTestDelegateDataSource new];
     dataSource1.objects = @[genTestObject(@1, @2)];
     adapter1.dataSource = dataSource1;
@@ -1320,7 +1320,7 @@
     XCTAssertEqual([self.collectionView numberOfSections], 1);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
 
-    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter2 = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource2 = [IGTestDelegateDataSource new];
     dataSource2.objects = @[genTestObject(@1, @1), genTestObject(@2, @1)];
     adapter2.dataSource = dataSource2;
@@ -1344,7 +1344,7 @@
 }
 
 - (void)test_whenAdaptersSwapCollectionViews_ {
-    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter1 = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource1 = [IGTestDelegateDataSource new];
     dataSource1.objects = @[genTestObject(@1, @2)];
     adapter1.dataSource = dataSource1;
@@ -1354,7 +1354,7 @@
     XCTAssertEqual([self.collectionView numberOfSections], 1);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 2);
 
-    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter2 = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     IGTestDelegateDataSource *dataSource2 = [IGTestDelegateDataSource new];
     dataSource2.objects = @[genTestObject(@1, @1), genTestObject(@2, @1)];
     adapter2.dataSource = dataSource2;
@@ -1390,10 +1390,10 @@
     XCTestExpectation *expectation1 = genExpectation;
     __weak __typeof__(section) weakSection = section;
     section.itemUpdateBlock = ^{
-        // currently inside -[IGListSectionController didUpdateToObject:], change the item (note: NEVER do this) manually
+        // currently inside -[IGSTListSectionController didUpdateToObject:], change the item (note: NEVER do this) manually
         // so that the data powering numberOfItems changes (1 to 2). dispatch_async the update to skip outside of the
         // -[UICollectionView performBatchUpdates:completion:] block execution
-        [weakSection.collectionContext performBatchAnimated:NO updates:^(id<IGListBatchContext> batchContext) {
+        [weakSection.collectionContext performBatchAnimated:NO updates:^(id<IGSTListBatchContext> batchContext) {
             weakSection.item = genTestObject(@1, @2);
             [batchContext reloadSectionController:weakSection];
         } completion:^(BOOL finished) {
@@ -1424,10 +1424,10 @@
                              ]];
 
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @4;
         [batchContext insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
         [batchContext insertInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
@@ -1445,10 +1445,10 @@
                              ]];
 
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @2;
         [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
         [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
@@ -1466,10 +1466,10 @@
                              ]];
 
     IGTestObject *object = self.dataSource.objects[0];
-    IGListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
+    IGSTListSectionController *sectionController = [self.adapter sectionControllerForObject:object];
 
     XCTestExpectation *expectation = genExpectation;
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
         [batchContext reloadInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:^(BOOL finished2) {
@@ -1494,7 +1494,7 @@
     XCTestExpectation *expect1 = genExpectation;
     XCTestExpectation *expect2 = genExpectation;
 
-    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [sectionController.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         object.value = @3;
         [batchContext deleteInSectionController:sectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
 
@@ -1525,7 +1525,7 @@
     // init empty
     [self setupWithObjects:@[]];
 
-    ((IGListAdapterUpdater *)self.updater).experiments = IGListExperimentReloadDataFallback;
+    ((IGSTListAdapterUpdater *)self.updater).experiments = IGSTListExperimentReloadDataFallback;
 
     NSMutableArray *objects = [NSMutableArray new];
     for (NSInteger i = 0; i < 3000; i++) {

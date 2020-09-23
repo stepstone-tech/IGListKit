@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestUICollectionViewDataSource.h"
+#import "IGSTListTestUICollectionViewDataSource.h"
 
 @implementation IGSectionObject
 
@@ -18,7 +18,7 @@
 }
 
 
-#pragma mark - IGListDiffable
+#pragma mark - IGSTListDiffable
 
 - (id<NSObject>)diffIdentifier {
     // this is for test purposes only. please dont do this.

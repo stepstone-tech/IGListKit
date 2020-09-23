@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-@interface IGTestSupplementarySource : NSObject <IGListSupplementaryViewSource>
+@interface IGTestSupplementarySource : NSObject <IGSTListSupplementaryViewSource>
 
 @property (nonatomic, assign) BOOL dequeueFromNib;
 
@@ -19,8 +19,8 @@
 
 @property (nonatomic, strong, readwrite) NSArray<NSString *> *supportedElementKinds;
 
-@property (nonatomic, weak) id<IGListCollectionContext> collectionContext;
+@property (nonatomic, weak) id<IGSTListCollectionContext> collectionContext;
 
-@property (nonatomic, weak) IGListSectionController *sectionController;
+@property (nonatomic, weak) IGSTListSectionController *sectionController;
 
 @end

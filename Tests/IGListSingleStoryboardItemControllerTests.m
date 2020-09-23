@@ -9,25 +9,25 @@
 
 #import <XCTest/XCTest.h>
 
-#import "IGTestStoryboardCell.h"
-#import "IGTestSingleStoryboardItemDataSource.h"
-#import "IGTestStoryboardViewController.h"
-#import "IGListTestCase.h"
+#import "IGSTTestStoryboardCell.h"
+#import "IGSTTestSingleStoryboardItemDataSource.h"
+#import "IGSTTestStoryboardViewController.h"
+#import "IGSTListTestCase.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 
-@interface IGListSingleStoryboardSectionControllerTests : XCTestCase
+@interface IGSTListSingleStoryboardSectionControllerTests : XCTestCase
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) IGListAdapterUpdater *updater;
+@property (nonatomic, strong) IGSTListAdapter *adapter;
+@property (nonatomic, strong) IGSTListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestSingleStoryboardItemDataSource *dataSource;
 @property (nonatomic, strong) IGTestStoryboardViewController *viewController;
 @property (nonatomic, strong) UIWindow *window;
 
 @end
 
-@implementation IGListSingleStoryboardSectionControllerTests
+@implementation IGSTListSingleStoryboardSectionControllerTests
 
 - (void)setUp {
     [super setUp];
@@ -38,8 +38,8 @@
     [self.viewController performSelectorOnMainThread:@selector(loadView) withObject:nil waitUntilDone:YES];
     self.collectionView = self.viewController.collectionView;
     self.dataSource = [[IGTestSingleStoryboardItemDataSource alloc] init];
-    self.updater = [[IGListAdapterUpdater alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:self.viewController workingRangeSize:2];
+    self.updater = [[IGSTListAdapterUpdater alloc] init];
+    self.adapter = [[IGSTListAdapter alloc] initWithUpdater:self.updater viewController:self.viewController workingRangeSize:2];
 }
 
 - (void)tearDown {

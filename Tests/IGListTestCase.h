@@ -9,26 +9,26 @@
 
 #import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-#import "IGListTestHelpers.h"
+#import "IGSTListTestHelpers.h"
 
-@protocol IGListTestCaseDataSource <IGListAdapterDataSource>
+@protocol IGListTestCaseDataSource <IGSTListAdapterDataSource>
 - (NSArray *)objects;
-- (void)setObjects:(NSArray<id<IGListDiffable>> *)objects;
+- (void)setObjects:(NSArray<id<IGSTListDiffable>> *)objects;
 @end
 
 @interface IGListTestCase : XCTestCase
 
 // These objects are created for you in -setUp
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) IGListAdapter *adapter;
+@property (nonatomic, strong) IGSTListAdapter *adapter;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 
 // Created in -setUp if your subclass has not already created one
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) CGRect frame; // default 0,0,100,100
-@property (nonatomic, strong) id<IGListUpdatingDelegate> updater; // default IGListAdapterUpdater
+@property (nonatomic, strong) id<IGSTListUpdatingDelegate> updater; // default IGSTListAdapterUpdater
 
 // Required objects must be set before [super setUp] in your test subclass
 @property (nonatomic, strong) id<IGListTestCaseDataSource> dataSource;

@@ -12,24 +12,24 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-#import "IGListAdapterInternal.h"
-#import "IGListTestAdapterDataSource.h"
-#import "IGListTestAdapterHorizontalDataSource.h"
-#import "IGListTestSection.h"
-#import "IGTestSupplementarySource.h"
-#import "IGTestNibSupplementaryView.h"
-#import "IGListTestCase.h"
+#import "IGSTListAdapterInternal.h"
+#import "IGSTListTestAdapterDataSource.h"
+#import "IGSTListTestAdapterHorizontalDataSource.h"
+#import "IGSTListTestSection.h"
+#import "IGSTTestSupplementarySource.h"
+#import "IGSTTestNibSupplementaryView.h"
+#import "IGSTListTestCase.h"
 
-@interface IGListAdapterTests : IGListTestCase
+@interface IGSTListAdapterTests : IGListTestCase
 @end
 
-@implementation IGListAdapterTests
+@implementation IGSTListAdapterTests
 
 - (void)setUp {
     self.dataSource = [IGListTestAdapterDataSource new];
-    self.updater = [IGListReloadDataUpdater new];
+    self.updater = [IGSTListReloadDataUpdater new];
 
     [super setUp];
 
@@ -64,14 +64,14 @@
 - (void)test_whenAdapterUpdated_thatSectionControllerHasSection {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController * list = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController * list = [self.adapter sectionControllerForObject:@1];
     XCTAssertEqual([self.adapter sectionForSectionController:list], 1);
 }
 
 - (void)test_whenAdapterUpdated_withUnknownItem_thatSectionControllerHasNoSection {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController * randomList = [[IGListTestSection alloc] init];
+    IGSTListSectionController * randomList = [[IGListTestSection alloc] init];
     XCTAssertEqual([self.adapter sectionForSectionController:randomList], NSNotFound);
 }
 
@@ -84,21 +84,21 @@
 - (void)test_whenAdapterUpdated_thatSectionControllerHasCorrectObject {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController * list = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController * list = [self.adapter sectionControllerForObject:@1];
     XCTAssertEqual([self.adapter objectForSectionController:list], @1);
 }
 
 - (void)test_whenQueryingAdapter_withUnknownItem_thatObjectForSectionControllerIsNil {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController * randomList = [[IGListTestSection alloc] init];
+    IGSTListSectionController * randomList = [[IGListTestSection alloc] init];
     XCTAssertNil([self.adapter objectForSectionController:randomList]);
 }
 
 - (void)test_whenQueryingIndexPaths_withSectionController_thatPathsAreEqual {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController * second = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController * second = [self.adapter sectionControllerForObject:@1];
     NSArray *paths0 = [self.adapter indexPathsFromSectionController:second
                                                             indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 4)]
                                                  usePreviousIfInUpdateBlock:NO];
@@ -114,10 +114,10 @@
 - (void)test_whenQueryingIndexPaths_insideBatchUpdateBlock_thatPathsAreEqual {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter performUpdatesAnimated:YES completion:nil];
-    IGListSectionController * second = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController * second = [self.adapter sectionControllerForObject:@1];
 
     __block BOOL executed = NO;
-    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [self.adapter performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         NSArray *paths = [self.adapter indexPathsFromSectionController:second
                                                                indexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)]
                                                     usePreviousIfInUpdateBlock:YES];
@@ -133,18 +133,18 @@
 }
 
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassName {
-    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, nil);
+    NSString *identifier = IGSTListReusableViewIdentifier(UICollectionViewCell.class, nil, nil);
     XCTAssertEqualObjects(identifier, @"UICollectionViewCell");
 }
 
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassNameAndSupplimentaryKind {
-    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nil, UICollectionElementKindSectionFooter);
+    NSString *identifier = IGSTListReusableViewIdentifier(UICollectionViewCell.class, nil, UICollectionElementKindSectionFooter);
     XCTAssertEqualObjects(identifier, @"UICollectionElementKindSectionFooterUICollectionViewCell");
 }
 
 - (void)test_whenQueryingReusableIdentifier_thatIdentifierEqualsClassNameAndNibName {
     NSString *nibName = @"IGNibName";
-    NSString *identifier = IGListReusableViewIdentifier(UICollectionViewCell.class, nibName, nil);
+    NSString *identifier = IGSTListReusableViewIdentifier(UICollectionViewCell.class, nibName, nil);
     XCTAssertEqualObjects(identifier, @"IGNibNameUICollectionViewCell");
 }
 
@@ -170,26 +170,26 @@
 - (void)test_whenReloadingData_thatNewSectionControllersAreCreated {
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListSectionController *oldSectionController = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *oldSectionController = [self.adapter sectionControllerForObject:@1];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListSectionController *newSectionController = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *newSectionController = [self.adapter sectionControllerForObject:@1];
     XCTAssertNotEqual(oldSectionController, newSectionController);
 }
 
 - (void)test_whenSettingCollectionView_thenSettingDataSource_thatViewControllerIsSet {
     self.dataSource.objects = @[@0, @1, @2];
     UIViewController *controller = [UIViewController new];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new]
                                                      viewController:controller];
     adapter.collectionView = self.collectionView;
     adapter.dataSource = self.dataSource;
-    IGListSectionController *sectionController = [adapter sectionControllerForObject:@1];
+    IGSTListSectionController *sectionController = [adapter sectionControllerForObject:@1];
     XCTAssertEqual(controller, sectionController.viewController);
 }
 
 - (void)test_whenSettingCollectionView_thenSettingDataSource_thatCellExists {
     self.dataSource.objects = @[@1];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new]
                                                      viewController:nil];
     adapter.collectionView = self.collectionView;
     adapter.dataSource = self.dataSource;
@@ -199,7 +199,7 @@
 
 - (void)test_whenSettingDataSource_thenSettingCollectionView_thatCellExists {
     self.dataSource.objects = @[@1];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new]
                                                      viewController:nil];
     adapter.dataSource = self.dataSource;
     adapter.collectionView = self.collectionView;
@@ -209,8 +209,8 @@
 
 - (void)test_whenChangingCollectionViews_thatCellsExist {
     self.dataSource.objects = @[@1];
-    IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+    IGSTListAdapterUpdater *updater = [[IGSTListAdapterUpdater alloc] init];
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:updater viewController:nil];
     adapter.dataSource = self.dataSource;
     adapter.collectionView = self.collectionView;
     [self.collectionView layoutIfNeeded];
@@ -225,14 +225,14 @@
 - (void)test_whenChangingCollectionViewsToACollectionViewInUseByAnotherAdapter_thatCollectionViewDelegateIsUpdated {
     IGListTestAdapterDataSource *dataSource1 = [[IGListTestAdapterDataSource alloc] init];
     dataSource1.objects = @[@1];
-    IGListAdapterUpdater *updater1 = [[IGListAdapterUpdater alloc] init];
-    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:updater1 viewController:nil];
+    IGSTListAdapterUpdater *updater1 = [[IGSTListAdapterUpdater alloc] init];
+    IGSTListAdapter *adapter1 = [[IGSTListAdapter alloc] initWithUpdater:updater1 viewController:nil];
     adapter1.dataSource = dataSource1;
 
     IGListTestAdapterDataSource *dataSource2 = [[IGListTestAdapterDataSource alloc] init];
     dataSource1.objects = @[@1];
-    IGListAdapterUpdater *updater2 = [[IGListAdapterUpdater alloc] init];
-    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:updater2 viewController:nil];
+    IGSTListAdapterUpdater *updater2 = [[IGSTListAdapterUpdater alloc] init];
+    IGSTListAdapter *adapter2 = [[IGSTListAdapter alloc] initWithUpdater:updater2 viewController:nil];
     adapter1.dataSource = dataSource2;
 
     // associate collection view with adapter1
@@ -269,11 +269,11 @@
     supplementarySource.dequeueFromNib = YES;
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@0];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
     [self.adapter performUpdatesAnimated:NO completion:nil];
-    NSArray<IGListSectionController *> *visibleSectionControllers = [self.adapter visibleSectionControllers];
+    NSArray<IGSTListSectionController *> *visibleSectionControllers = [self.adapter visibleSectionControllers];
 
     XCTAssertTrue([visibleSectionControllers count] == 1);
     XCTAssertTrue(visibleSectionControllers.firstObject.supplementaryViewSource == supplementarySource);
@@ -362,7 +362,7 @@
     IGListTestSection *firstSectionController = [self.adapter sectionControllerForObject:@(1)];
     IGListTestSection *secondSectionController = [self.adapter sectionControllerForObject:@(2)];
     XCTestExpectation *expectation =  [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [self.adapter performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         firstSectionController.items = 0;
         [self.adapter deleteInSectionController:firstSectionController atIndexes:[NSIndexSet indexSetWithIndex:0]];
         secondSectionController.items = 0;
@@ -441,7 +441,7 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -462,7 +462,7 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -489,13 +489,13 @@
         IGListTestAdapterDataSource *dataSource = [[IGListTestAdapterDataSource alloc] init];
         dataSource.objects = @[@0, @1, @2];
 
-        IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+        IGSTListReloadDataUpdater *updater = [[IGSTListReloadDataUpdater alloc] init];
+        IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:updater viewController:nil];
         adapter.collectionView = collectionView;
         adapter.dataSource = dataSource;
         weakAdapter = adapter;
 
-        IGListSectionController *sectionController = [adapter sectionControllerForObject:@1];
+        IGSTListSectionController *sectionController = [adapter sectionControllerForObject:@1];
         weakSectionController = sectionController;
 
         // force the collection view to layout and generate cells
@@ -529,13 +529,13 @@
         IGListTestAdapterDataSource *dataSource = [[IGListTestAdapterDataSource alloc] init];
         dataSource.objects = @[@0, @1, @2];
 
-        IGListReloadDataUpdater *updater = [[IGListReloadDataUpdater alloc] init];
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+        IGSTListReloadDataUpdater *updater = [[IGSTListReloadDataUpdater alloc] init];
+        IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:updater viewController:nil];
         adapter.collectionView = collectionView;
         adapter.dataSource = dataSource;
         weakAdapter = adapter;
 
-        IGListSectionController *sectionController = [adapter sectionControllerForObject:@1];
+        IGSTListSectionController *sectionController = [adapter sectionControllerForObject:@1];
         weakSectionController = sectionController;
 
         // force the collection view to layout and generate cells
@@ -672,7 +672,7 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@0];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -747,7 +747,7 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -769,7 +769,7 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
@@ -813,7 +813,7 @@
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
-    id randomSectionController = [IGListSectionController new];
+    id randomSectionController = [IGSTListSectionController new];
     XCTAssertNil([self.adapter indexPathForSectionController:randomSectionController index:0 usePreviousIfInUpdateBlock:NO]);
 }
 
@@ -837,7 +837,7 @@
 
 - (void)test_whenReloadingData_withNoDataSource_thatCompletionCalledWithNO {
     self.dataSource.objects = @[@1];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new]
                                                      viewController:nil];
     adapter.collectionView = self.collectionView;
 
@@ -851,7 +851,7 @@
 
 - (void)test_whenReloadingData_withNoCollectionView_thatCompletionCalledWithNO {
     self.dataSource.objects = @[@1];
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new]
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new]
                                                      viewController:nil];
     adapter.dataSource = self.dataSource;
 
@@ -867,7 +867,7 @@
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListUpdatingDelegate)];
     [[mockDelegate reject] deleteItemsFromCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
     self.adapter.updater = mockDelegate;
 
@@ -881,7 +881,7 @@
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListUpdatingDelegate)];
     [[mockDelegate reject] insertItemsIntoCollectionView:[OCMArg any] indexPaths:[OCMArg any]];
     self.adapter.updater = mockDelegate;
 
@@ -895,11 +895,11 @@
     self.dataSource.objects = @[@0, @1, @2];
     [self.adapter reloadDataWithCompletion:nil];
 
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListUpdatingDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListUpdatingDelegate)];
     [[mockDelegate reject] reloadCollectionView:[OCMArg any] sections:[OCMArg any]];
     self.adapter.updater = mockDelegate;
 
-    id sectionController = [IGListSectionController new];
+    id sectionController = [IGSTListSectionController new];
     [self.adapter reloadSectionController:sectionController];
 
     [mockDelegate verify];
@@ -1080,7 +1080,7 @@
     self.dataSource.objects = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19];
     [self.adapter reloadDataWithCompletion:nil];
     
-    IGListSectionController *section = [self.adapter sectionControllerForObject:@8];
+    IGSTListSectionController *section = [self.adapter sectionControllerForObject:@8];
     [section.collectionContext scrollToSectionController:section atIndex:0 scrollPosition:UICollectionViewScrollPositionTop animated:NO];
     XCTAssertEqual(self.collectionView.contentOffset.x, 0);
     XCTAssertEqual(self.collectionView.contentOffset.y, 280);
@@ -1095,11 +1095,11 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@0];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
-    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
     [[mockDisplayDelegate expect] listAdapter:self.adapter willDisplaySectionController:controller];
     [[mockDisplayDelegate reject] listAdapter:self.adapter willDisplaySectionController:controller cell:[OCMArg any] atIndex:0];
 
@@ -1120,14 +1120,14 @@
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@0];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@0];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 
     [self.adapter performUpdatesAnimated:NO completion:nil];
     XCTAssertNotNil([self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]);
 
-    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    id mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
     [[mockDisplayDelegate expect] listAdapter:self.adapter didEndDisplayingSectionController:controller];
     [[mockDisplayDelegate reject] listAdapter:self.adapter didEndDisplayingSectionController:controller cell:[OCMArg any] atIndex:0];
 
@@ -1182,7 +1182,7 @@
     // IGListTestAdapterDataSource does not handle NSStrings
     self.dataSource.objects = @[@42];
     [self.adapter reloadDataWithCompletion:nil];
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@42];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@42];
     IGAssertEqualSize([self.adapter containerSizeForSectionController:controller], 98, 98);
 }
 
@@ -1204,7 +1204,7 @@
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionFooter];
     supplementarySource.size = CGSizeMake(-1, -1);
     
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
     
@@ -1218,7 +1218,7 @@
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
     self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@2];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@2];
     const UIEdgeInsets inset = [controller.collectionContext containerInset];
     XCTAssertEqual(inset.top, 1);
     XCTAssertEqual(inset.left, 2);
@@ -1230,7 +1230,7 @@
     self.dataSource.objects = @[@2];
     [self.adapter reloadDataWithCompletion:nil];
     self.collectionView.contentInset = UIEdgeInsetsMake(1, 2, 3, 4);
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@2];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@2];
     const CGSize size = [controller.collectionContext insetContainerSize];
     XCTAssertEqual(size.width, 94);
     XCTAssertEqual(size.height, 96);
@@ -1244,7 +1244,7 @@
     self.dataSource.objects = @[one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController *controller1a = [self.adapter sectionControllerForObject:one];
+    IGSTListSectionController *controller1a = [self.adapter sectionControllerForObject:one];
     XCTAssertEqual(controller1a.section, 0);
     XCTAssertTrue(controller1a.isFirstSection);
 
@@ -1255,11 +1255,11 @@
     self.dataSource.objects = @[zero, one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController *controller0 = [self.adapter sectionControllerForObject:zero];
+    IGSTListSectionController *controller0 = [self.adapter sectionControllerForObject:zero];
     XCTAssertEqual(controller0.section, 0);
     XCTAssertTrue(controller0.isFirstSection);
 
-    IGListSectionController *controller1b = [self.adapter sectionControllerForObject:one];
+    IGSTListSectionController *controller1b = [self.adapter sectionControllerForObject:one];
     XCTAssertEqual(controller1b.section, 1);
     XCTAssertFalse(controller1b.isFirstSection);
 
@@ -1276,15 +1276,15 @@
     self.dataSource.objects = @[zero, one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController *zeroController = [self.adapter sectionControllerForSection:0];
+    IGSTListSectionController *zeroController = [self.adapter sectionControllerForSection:0];
     XCTAssertEqual(zeroController.section, 0);
     XCTAssertTrue(zeroController.isFirstSection);
 
-    IGListSectionController *oneController = [self.adapter sectionControllerForSection:1];
+    IGSTListSectionController *oneController = [self.adapter sectionControllerForSection:1];
     XCTAssertEqual(oneController.section, 1);
     XCTAssertFalse(oneController.isFirstSection);
 
-    IGListSectionController *threeController = [self.adapter sectionControllerForSection:3];
+    IGSTListSectionController *threeController = [self.adapter sectionControllerForSection:3];
     XCTAssertEqual(threeController.section, 3);
     XCTAssertTrue(threeController.isLastSection);
 
@@ -1309,15 +1309,15 @@
     self.dataSource.objects = @[zero, one, two, three];
     [self.adapter performUpdatesAnimated:NO completion:nil];
 
-    IGListSectionController *zeroController = [self.adapter sectionControllerForSection:0];
+    IGSTListSectionController *zeroController = [self.adapter sectionControllerForSection:0];
     XCTAssertEqual(zeroController.section, 0);
     XCTAssertTrue(zeroController.isFirstSection);
 
-    IGListSectionController *oneController = [self.adapter sectionControllerForSection:1];
+    IGSTListSectionController *oneController = [self.adapter sectionControllerForSection:1];
     XCTAssertEqual(oneController.section, 1);
     XCTAssertFalse(oneController.isFirstSection);
 
-    IGListSectionController *threeController = [self.adapter sectionControllerForSection:3];
+    IGSTListSectionController *threeController = [self.adapter sectionControllerForSection:3];
     XCTAssertEqual(threeController.section, 3);
     XCTAssertTrue(threeController.isLastSection);
 
@@ -1335,16 +1335,16 @@
 }
 
 - (void)test_withStrongRefToSectionController_thatAdaptersectionIsZero_thatSectionControllerIndexDoesNotChange {
-    IGListSectionController *sc = nil;
+    IGSTListSectionController *sc = nil;
 
     // hold a weak reference to simulate what would happen to the collectionContext object on a section controller
     // if the section controller were held strongly by an async block and the rest of the infra was deallocated
-    __weak IGListAdapter *wAdapter = nil;
+    __weak IGSTListAdapter *wAdapter = nil;
 
     @autoreleasepool {
         IGListTestAdapterDataSource *dataSource = [IGListTestAdapterDataSource new];
-        IGListReloadDataUpdater *updater = [IGListReloadDataUpdater new];
-        IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:updater
+        IGSTListReloadDataUpdater *updater = [IGSTListReloadDataUpdater new];
+        IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:updater
                                                          viewController:nil];
         adapter.dataSource = dataSource;
         adapter.collectionView = self.collectionView;
@@ -1363,11 +1363,11 @@
 
 - (void)test_whenSwappingCollectionViews_withMultipleAdapters_thatDoesntNilOtherAdaptersCollectionView {
     IGListTestAdapterDataSource *dataSource1 = [IGListTestAdapterDataSource new];
-    IGListAdapter *adapter1 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter1 = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     adapter1.dataSource = dataSource1;
 
     IGListTestAdapterDataSource *dataSource2 = [IGListTestAdapterDataSource new];
-    IGListAdapter *adapter2 = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter2 = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     adapter2.dataSource = dataSource2;
 
     UICollectionView *collectionView1 = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
@@ -1404,7 +1404,7 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
     collectionView.prefetchingEnabled = YES;
 
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil];
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil];
     adapter.collectionView = collectionView;
 
     XCTAssertFalse(collectionView.prefetchingEnabled);

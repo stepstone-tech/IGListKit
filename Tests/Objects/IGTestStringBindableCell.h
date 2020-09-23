@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListBindable.h>
+#import <IGListKitStSt/IGSTListBindable.h>
 
-@interface IGTestStringBindableCell : UICollectionViewCell<IGListBindable>
+@interface IGTestStringBindableCell : UICollectionViewCell<IGSTListBindable>
 
 @property (nonatomic, strong, readonly) UILabel *label;
 

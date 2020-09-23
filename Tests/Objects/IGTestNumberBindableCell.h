@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListBindable.h>
+#import <IGListKitStSt/IGSTListBindable.h>
 
-@interface IGTestNumberBindableCell : UICollectionViewCell<IGListBindable>
+@interface IGTestNumberBindableCell : UICollectionViewCell<IGSTListBindable>
 
 @property (nonatomic, strong, readonly) UITextField *textField;
 

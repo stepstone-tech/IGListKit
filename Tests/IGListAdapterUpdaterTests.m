@@ -10,23 +10,23 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import "IGListAdapterUpdaterInternal.h"
-#import "IGListTestUICollectionViewDataSource.h"
+#import "IGSTListAdapterUpdaterInternal.h"
+#import "IGSTListTestUICollectionViewDataSource.h"
 
 #define genExpectation [self expectationWithDescription:NSStringFromSelector(_cmd)]
 #define waitExpectation [self waitForExpectationsWithTimeout:30 handler:nil]
 
-@interface IGListAdapterUpdaterTests : XCTestCase
+@interface IGSTListAdapterUpdaterTests : XCTestCase
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListTestUICollectionViewDataSource *dataSource;
-@property (nonatomic, strong) IGListAdapterUpdater *updater;
-@property (nonatomic, strong) IGListObjectTransitionBlock updateBlock;
+@property (nonatomic, strong) IGSTListAdapterUpdater *updater;
+@property (nonatomic, strong) IGSTListObjectTransitionBlock updateBlock;
 
 @end
 
-@implementation IGListAdapterUpdaterTests
+@implementation IGSTListAdapterUpdaterTests
 
 - (void)setUp {
     [super setUp];
@@ -39,7 +39,7 @@
     [self.window addSubview:self.collectionView];
 
     self.dataSource = [[IGListTestUICollectionViewDataSource alloc] initWithCollectionView:self.collectionView];
-    self.updater = [[IGListAdapterUpdater alloc] init];
+    self.updater = [[IGSTListAdapterUpdater alloc] init];
     __weak __typeof__(self) weakSelf = self;
     self.updateBlock = ^(NSArray *obj) {
         weakSelf.dataSource.sections = obj;
@@ -357,7 +357,7 @@
 - (void)test_whenConvertingReloads_withoutChanges_thatOriginalIndexUsed {
     NSArray *from = @[];
     NSArray *to = @[];
-    IGListIndexSetResult *result = IGListDiff(from, to, IGListDiffEquality);
+    IGListIndexSetResult *result = IGSTListDiff(from, to, IGSTListDiffEquality);
     NSMutableIndexSet *reloads = [result.updates mutableCopy];
     [reloads addIndex:2];
     NSMutableIndexSet *deletes = [result.deletes mutableCopy];
@@ -373,7 +373,7 @@
 - (void)test_whenConvertingReloads_withChanges_thatIndexMoves {
     NSArray *from = @[@1, @2, @3];
     NSArray *to = @[@3, @2, @1];
-    IGListIndexSetResult *result = IGListDiff(from, to, IGListDiffEquality);
+    IGListIndexSetResult *result = IGSTListDiff(from, to, IGSTListDiffEquality);
     NSMutableIndexSet *reloads = [result.updates mutableCopy];
     [reloads addIndex:2];
     NSMutableIndexSet *deletes = [result.deletes mutableCopy];
@@ -389,7 +389,7 @@
 - (void)test_whenReloadingSection_whenSectionRemoved_thatConvertMethodCorrects {
     NSArray *from = @[@"a", @"b", @"c"];
     NSArray *to = @[@"a", @"c"];
-    IGListIndexSetResult *result = IGListDiff(from, to, IGListDiffEquality);
+    IGListIndexSetResult *result = IGSTListDiff(from, to, IGSTListDiffEquality);
     NSMutableIndexSet *reloads = [NSMutableIndexSet indexSetWithIndex:1];
     NSMutableIndexSet *deletes = [NSMutableIndexSet new];
     NSMutableIndexSet *inserts = [NSMutableIndexSet new];
@@ -400,7 +400,7 @@
 }
 
 - (void)test_whenReloadingData_withNilCollectionView_thatDelegateEventNotSent {
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     id compilerFriendlyNil = nil;
     [[mockDelegate reject] listAdapterUpdater:self.updater willReloadDataWithCollectionView:compilerFriendlyNil];
@@ -410,7 +410,7 @@
 }
 
 - (void)test_whenPerformingUpdates_withNilCollectionView_thatDelegateEventNotSent {
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     id compilerFriendlyNil = nil;
     [[mockDelegate reject] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:compilerFriendlyNil];
@@ -443,7 +443,7 @@
                             [IGSectionObject sectionWithObjects:@[@1]],
                             ];
 
-    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
+    IGSTListAdapterUpdater *updater = [IGSTListAdapterUpdater new];
     [updater performReloadDataWithCollectionView:collectionView];
 
     XCTAssertEqual([collectionView numberOfSections], 1);
@@ -464,7 +464,7 @@
     self.updater.allowsBackgroundReloading = NO;
     [self.collectionView removeFromSuperview];
 
-    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGSTListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
     [mockDelegate setExpectationOrderMatters:YES];
     [[mockDelegate expect] listAdapterUpdater:self.updater willPerformBatchUpdatesWithCollectionView:self.collectionView];
@@ -484,7 +484,7 @@
 - (void)test_whenCollectionViewNotInWindow_andBackgroundReloadFlag_isDefaultYES_diffDoesNotHappen {
     [self.collectionView removeFromSuperview];
 
-    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterUpdaterDelegate)];
+    id mockDelegate = [OCMockObject niceMockForProtocol:@protocol(IGSTListAdapterUpdaterDelegate)];
     self.updater.delegate = mockDelegate;
 
     // NOTE: The current behavior in this case is for the adapter updater

@@ -7,24 +7,24 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestAdapterHorizontalDataSource.h"
+#import "IGSTListTestAdapterHorizontalDataSource.h"
 
-#import <IGListKit/IGListAdapter.h>
+#import <IGListKitStSt/IGSTListAdapter.h>
 
-#import "IGListTestHorizontalSection.h"
+#import "IGSTListTestHorizontalSection.h"
 
 @implementation IGListTestAdapterHorizontalDataSource
 
-- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGSTListSectionController *)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerForObject:(id)object {
     IGListTestHorizontalSection *list = [[IGListTestHorizontalSection alloc] init];
     return list;
 }
 
-- (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
+- (nullable UIView *)emptyViewForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.backgroundView;
 }
 

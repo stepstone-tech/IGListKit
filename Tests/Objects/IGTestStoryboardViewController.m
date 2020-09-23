@@ -7,8 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestStoryboardViewController.h"
-#import "IGTestStoryboardCell.h"
+#import "IGSTTestStoryboardViewController.h"
+#import "IGSTTestStoryboardCell.h"
 
 @interface IGTestStoryboardViewController ()
 

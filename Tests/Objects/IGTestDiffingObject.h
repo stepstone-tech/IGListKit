@@ -9,9 +9,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListDiffable.h>
+#import <IGListKitStSt/IGSTListDiffable.h>
 
-@interface IGTestDiffingObject : NSObject<IGListDiffable>
+@interface IGTestDiffingObject : NSObject<IGSTListDiffable>
 
 - (instancetype)initWithKey:(id)key objects:(NSArray *)objects;
 

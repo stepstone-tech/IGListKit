@@ -9,9 +9,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListAdapterDataSource.h>
+#import <IGListKitStSt/IGSTListAdapterDataSource.h>
 
-#import "IGListTestCase.h"
+#import "IGSTListTestCase.h"
 
 @class IGTestObject;
 @class IGTestDelegateController;

@@ -1,0 +1,6 @@
+framework module IGListKitStSt {
+  umbrella header "IGSTListKitStSt-umbrella.h"
+
+  export *
+  module * { export * }
+}

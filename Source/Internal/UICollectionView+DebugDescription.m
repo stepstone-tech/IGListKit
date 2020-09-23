@@ -9,7 +9,7 @@
 
 #import "UICollectionView+DebugDescription.h"
 
-#import <IGListKit/IGListMacros.h>
+#import <IGListKitStSt/IGSTListMacros.h>
 
 @implementation UICollectionView (DebugDescription)
 

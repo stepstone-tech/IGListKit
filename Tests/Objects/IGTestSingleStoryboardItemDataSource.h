@@ -9,11 +9,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListAdapterDataSource.h>
+#import <IGListKitStSt/IGSTListAdapterDataSource.h>
 
-#import "IGTestObject.h"
+#import "IGSTTestObject.h"
 
-@interface IGTestSingleStoryboardItemDataSource : NSObject <IGListAdapterDataSource>
+@interface IGTestSingleStoryboardItemDataSource : NSObject <IGSTListAdapterDataSource>
 
 @property (nonatomic, strong) NSArray <IGTestObject *> *objects;
 

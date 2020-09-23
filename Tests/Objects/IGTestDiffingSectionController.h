@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-@interface IGTestDiffingSectionController : IGListBindingSectionController <IGListBindingSectionControllerDataSource, IGListBindingSectionControllerSelectionDelegate>
+@interface IGTestDiffingSectionController : IGSTListBindingSectionController <IGSTListBindingSectionControllerDataSource, IGSTListBindingSectionControllerSelectionDelegate>
 
 @property (nonatomic, strong) id selectedViewModel;
 @property (nonatomic, strong) id deselectedViewModel;

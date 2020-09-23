@@ -9,14 +9,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-@interface IGTestStoryboardSupplementarySource : NSObject <IGListSupplementaryViewSource>
+@interface IGTestStoryboardSupplementarySource : NSObject <IGSTListSupplementaryViewSource>
 
 @property (nonatomic, strong, readwrite) NSArray<NSString *> *supportedElementKinds;
 
-@property (nonatomic, weak) id<IGListCollectionContext> collectionContext;
+@property (nonatomic, weak) id<IGSTListCollectionContext> collectionContext;
 
-@property (nonatomic, weak) IGListSectionController *sectionController;
+@property (nonatomic, weak) IGSTListSectionController *sectionController;
 
 @end

@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListAdapterDataSource.h>
+#import <IGListKitStSt/IGSTListAdapterDataSource.h>
 
-#import "IGTestObject.h"
+#import "IGSTTestObject.h"
 
 @interface IGTestStoryboardViewController : UIViewController
 

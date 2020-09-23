@@ -7,10 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGLayoutTestDataSource.h"
+#import "IGSTLayoutTestDataSource.h"
 
-#import "IGLayoutTestItem.h"
-#import "IGLayoutTestSection.h"
+#import "IGSTLayoutTestItem.h"
+#import "IGSTLayoutTestSection.h"
 
 static NSString * const kCellIdentifier = @"cell";
 static NSString * const kHeaderIdentifier = @"header";

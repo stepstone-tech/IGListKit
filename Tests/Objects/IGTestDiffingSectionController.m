@@ -7,13 +7,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestDiffingSectionController.h"
+#import "IGSTTestDiffingSectionController.h"
 
-#import "IGTestDiffingObject.h"
-#import "IGTestStringBindableCell.h"
-#import "IGTestNumberBindableCell.h"
-#import "IGTestObject.h"
-#import "IGTestCell.h"
+#import "IGSTTestDiffingObject.h"
+#import "IGSTTestStringBindableCell.h"
+#import "IGSTTestNumberBindableCell.h"
+#import "IGSTTestObject.h"
+#import "IGSTTestCell.h"
 
 @implementation IGTestDiffingSectionController
 
@@ -25,13 +25,13 @@
     return self;
 }
 
-#pragma mark - IGListBindingSectionControllerDataSource
+#pragma mark - IGSTListBindingSectionControllerDataSource
 
-- (NSArray<id<IGListDiffable>> *)sectionController:(IGListBindingSectionController *)sectionController viewModelsForObject:(id)object {
+- (NSArray<id<IGSTListDiffable>> *)sectionController:(IGSTListBindingSectionController *)sectionController viewModelsForObject:(id)object {
     return [(IGTestDiffingObject *)object objects];
 }
 
-- (UICollectionViewCell<IGListBindable> *)sectionController:(IGListBindingSectionController *)sectionController cellForViewModel:(id)viewModel atIndex:(NSInteger)index {
+- (UICollectionViewCell<IGSTListBindable> *)sectionController:(IGSTListBindingSectionController *)sectionController cellForViewModel:(id)viewModel atIndex:(NSInteger)index {
     Class cellClass;
     if ([viewModel isKindOfClass:[NSString class]]) {
         cellClass = [IGTestStringBindableCell class];
@@ -44,18 +44,18 @@
     return cell;
 }
 
-- (CGSize)sectionController:(IGListBindingSectionController *)sectionController sizeForViewModel:(id)viewModel atIndex:(NSInteger)index {
+- (CGSize)sectionController:(IGSTListBindingSectionController *)sectionController sizeForViewModel:(id)viewModel atIndex:(NSInteger)index {
     const BOOL isString = [viewModel isKindOfClass:[NSString class]];
     return CGSizeMake([self.collectionContext containerSize].width, isString ? 55 : 30);
 }
 
-#pragma mark - IGListBindingSectionControllerSelectionDelegate
+#pragma mark - IGSTListBindingSectionControllerSelectionDelegate
 
-- (void)sectionController:(IGListBindingSectionController *)sectionController didSelectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+- (void)sectionController:(IGSTListBindingSectionController *)sectionController didSelectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
     self.selectedViewModel = viewModel;
 }
 
-- (void)sectionController:(IGListBindingSectionController *)sectionController didDeselectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+- (void)sectionController:(IGSTListBindingSectionController *)sectionController didDeselectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
     self.deselectedViewModel = viewModel;
 }
 

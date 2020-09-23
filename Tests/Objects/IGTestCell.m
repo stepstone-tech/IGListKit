@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestCell.h"
+#import "IGSTTestCell.h"
 
-#import "IGTestObject.h"
+#import "IGSTTestObject.h"
 
 @implementation IGTestCell
 

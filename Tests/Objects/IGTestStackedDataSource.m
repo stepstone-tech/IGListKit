@@ -7,21 +7,21 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestStackedDataSource.h"
+#import "IGSTTestStackedDataSource.h"
 
-#import <IGListKit/IGListStackedSectionController.h>
+#import <IGListKitStSt/IGSTListStackedSectionController.h>
 
-#import "IGTestCell.h"
-#import "IGListTestSection.h"
-#import "IGListTestContainerSizeSection.h"
+#import "IGSTTestCell.h"
+#import "IGSTListTestSection.h"
+#import "IGSTListTestContainerSizeSection.h"
 
 @implementation IGTestStackedDataSource
 
-- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGSTListSectionController *)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerForObject:(id)object {
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for (id value in [(IGTestObject *)object value]) {
         id controller;
@@ -42,28 +42,28 @@
                 // otherwise the block uses the IGTestObject in the block param
                 cell.label.text = value;
             };
-            CGSize (^sizeBlock)(id, id<IGListCollectionContext>) = ^CGSize(IGTestObject *item, id<IGListCollectionContext> collectionContext) {
+            CGSize (^sizeBlock)(id, id<IGSTListCollectionContext>) = ^CGSize(IGTestObject *item, id<IGSTListCollectionContext> collectionContext) {
                 return CGSizeMake([collectionContext containerSize].width, 44);
             };
 
             // use either nibs or storyboards with NSString depending on the string value
             if ([value isEqualToString:@"nib"]) {
-                controller = [[IGListSingleSectionController alloc] initWithNibName:@"IGTestNibCell"
+                controller = [[IGSTListSingleSectionController alloc] initWithNibName:@"IGTestNibCell"
                                                                        bundle:[NSBundle bundleForClass:self.class]
                                                                configureBlock:configureBlock
                                                                     sizeBlock:sizeBlock];
             } else {
-                controller = [[IGListSingleSectionController alloc] initWithStoryboardCellIdentifier:@"IGTestStoryboardCell"
+                controller = [[IGSTListSingleSectionController alloc] initWithStoryboardCellIdentifier:@"IGTestStoryboardCell"
                                                                                 configureBlock:configureBlock
                                                                                      sizeBlock:sizeBlock];
             }
         }
         [controllers addObject:controller];
     }
-    return [[IGListStackedSectionController alloc] initWithSectionControllers:controllers];
+    return [[IGSTListStackedSectionController alloc] initWithSectionControllers:controllers];
 }
 
-- (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
+- (nullable UIView *)emptyViewForListAdapter:(IGSTListAdapter *)listAdapter {
     return nil;
 }
 

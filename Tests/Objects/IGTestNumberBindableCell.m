@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestNumberBindableCell.h"
+#import "IGSTTestNumberBindableCell.h"
 
 @implementation IGTestNumberBindableCell
 
@@ -18,7 +18,7 @@
     return self;
 }
 
-#pragma mark - IGListBindable
+#pragma mark - IGSTListBindable
 
 - (void)bindViewModel:(id)viewModel {
     self.textField.text = [viewModel description];

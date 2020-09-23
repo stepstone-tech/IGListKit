@@ -7,23 +7,23 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestDiffingDataSource.h"
+#import "IGSTTestDiffingDataSource.h"
 
-#import "IGTestDiffingObject.h"
-#import "IGTestDiffingSectionController.h"
+#import "IGSTTestDiffingObject.h"
+#import "IGSTTestDiffingSectionController.h"
 
 @implementation IGTestDiffingDataSource
 
-#pragma mark - IGListAdapterDataSource
+#pragma mark - IGSTListAdapterDataSource
 
-- (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray<id<IGSTListDiffable>> *)objectsForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGSTListSectionController *)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerForObject:(id)object {
     return [IGTestDiffingSectionController new];
 }
 
-- (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter { return nil; }
+- (UIView *)emptyViewForListAdapter:(IGSTListAdapter *)listAdapter { return nil; }
 
 @end

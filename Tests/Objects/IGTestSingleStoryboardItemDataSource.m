@@ -7,32 +7,32 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestSingleStoryboardItemDataSource.h"
+#import "IGSTTestSingleStoryboardItemDataSource.h"
 
-#import <IGListKit/IGListSingleSectionController.h>
+#import <IGListKitStSt/IGSTListSingleSectionController.h>
 
-#import "IGTestStoryboardCell.h"
+#import "IGSTTestStoryboardCell.h"
 
 @implementation IGTestSingleStoryboardItemDataSource
 
-- (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray<id<IGSTListDiffable>> *)objectsForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object
+- (IGSTListSectionController *)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerForObject:(id)object
 {
     void (^configureBlock)(id, __kindof UICollectionViewCell *) = ^(IGTestObject *item, IGTestStoryboardCell *cell) {
         cell.label.text = [item.value description];
     };
-    CGSize (^sizeBlock)(id, id<IGListCollectionContext>) = ^CGSize(IGTestObject *item, id<IGListCollectionContext> collectionContext) {
+    CGSize (^sizeBlock)(id, id<IGSTListCollectionContext>) = ^CGSize(IGTestObject *item, id<IGSTListCollectionContext> collectionContext) {
         return CGSizeMake([collectionContext containerSize].width, 44);
     };
-    return [[IGListSingleSectionController alloc] initWithStoryboardCellIdentifier:@"IGTestStoryboardCell"
+    return [[IGSTListSingleSectionController alloc] initWithStoryboardCellIdentifier:@"IGTestStoryboardCell"
                                                                     configureBlock:configureBlock
                                                                          sizeBlock:sizeBlock];
 }
 
-- (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
+- (UIView *)emptyViewForListAdapter:(IGSTListAdapter *)listAdapter {
     return nil;
 }
 

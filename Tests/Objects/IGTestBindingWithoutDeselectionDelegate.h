@@ -9,9 +9,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-@interface IGTestBindingWithoutDeselectionDelegate : NSObject <IGListBindingSectionControllerSelectionDelegate>
+@interface IGTestBindingWithoutDeselectionDelegate : NSObject <IGSTListBindingSectionControllerSelectionDelegate>
 
 @property (nonatomic, assign) BOOL selected;
 

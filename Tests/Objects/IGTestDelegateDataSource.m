@@ -7,26 +7,26 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestDelegateDataSource.h"
+#import "IGSTTestDelegateDataSource.h"
 
-#import <IGListKit/IGListAdapter.h>
+#import <IGListKitStSt/IGSTListAdapter.h>
 
-#import "IGTestDelegateController.h"
-#import "IGTestObject.h"
+#import "IGSTTestDelegateController.h"
+#import "IGSTTestObject.h"
 
 @implementation IGTestDelegateDataSource
 
-- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGSTListSectionController *)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerForObject:(id)object {
     IGTestDelegateController *sectionController = [[IGTestDelegateController alloc] init];
     sectionController.cellConfigureBlock = self.cellConfigureBlock;
     return sectionController;
 }
 
-- (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
+- (nullable UIView *)emptyViewForListAdapter:(IGSTListAdapter *)listAdapter {
     return nil;
 }
 

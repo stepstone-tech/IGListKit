@@ -9,28 +9,28 @@
 
 #import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-#import "IGListAdapterInternal.h"
-#import "IGListTestAdapterStoryboardDataSource.h"
-#import "IGListStackedSectionControllerInternal.h"
-#import "IGTestStoryboardViewController.h"
-#import "IGTestStoryboardSupplementarySource.h"
+#import "IGSTListAdapterInternal.h"
+#import "IGSTListTestAdapterStoryboardDataSource.h"
+#import "IGSTListStackedSectionControllerInternal.h"
+#import "IGSTTestStoryboardViewController.h"
+#import "IGSTTestStoryboardSupplementarySource.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
-@interface IGListAdapterStoryboardTests : XCTestCase
+@interface IGSTListAdapterStoryboardTests : XCTestCase
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
+@property (nonatomic, strong) IGSTListAdapter *adapter;
 @property (nonatomic, strong) IGListTestAdapterStoryboardDataSource *dataSource;
-@property (nonatomic, strong) IGListAdapterUpdater *updater;
+@property (nonatomic, strong) IGSTListAdapterUpdater *updater;
 @property (nonatomic, strong) IGTestStoryboardViewController *viewController;
 
 @end
 
-@implementation IGListAdapterStoryboardTests
+@implementation IGSTListAdapterStoryboardTests
 
 - (void)setUp {
     [super setUp];
@@ -43,8 +43,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     self.collectionView = self.viewController.collectionView;
 
     self.dataSource = [[IGListTestAdapterStoryboardDataSource alloc] init];
-    self.updater = [[IGListAdapterUpdater alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater viewController:self.viewController];
+    self.updater = [[IGSTListAdapterUpdater alloc] init];
+    self.adapter = [[IGSTListAdapter alloc] initWithUpdater:self.updater viewController:self.viewController];
 }
 
 - (void)tearDown {
@@ -65,7 +65,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     supplementarySource.collectionContext = self.adapter;
     supplementarySource.supportedElementKinds = @[UICollectionElementKindSectionHeader];
 
-    IGListSectionController *controller = [self.adapter sectionControllerForObject:@1];
+    IGSTListSectionController *controller = [self.adapter sectionControllerForObject:@1];
     controller.supplementaryViewSource = supplementarySource;
     supplementarySource.sectionController = controller;
 

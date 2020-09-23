@@ -9,14 +9,14 @@
 
 #import <XCTest/XCTest.h>
 
-#import "IGTestCell.h"
-#import "IGTestSingleNibItemDataSource.h"
-#import "IGListTestCase.h"
+#import "IGSTTestCell.h"
+#import "IGSTTestSingleNibItemDataSource.h"
+#import "IGSTListTestCase.h"
 
-@interface IGListSingleNibSectionControllerTests : IGListTestCase
+@interface IGSTListSingleNibSectionControllerTests : IGListTestCase
 @end
 
-@implementation IGListSingleNibSectionControllerTests
+@implementation IGSTListSingleNibSectionControllerTests
 
 - (void)setUp {
     self.dataSource = [IGTestSingleNibItemDataSource new];

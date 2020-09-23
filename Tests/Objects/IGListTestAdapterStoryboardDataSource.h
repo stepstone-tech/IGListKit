@@ -9,9 +9,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListAdapterDataSource.h>
+#import <IGListKitStSt/IGSTListAdapterDataSource.h>
 
-@interface IGListTestAdapterStoryboardDataSource : NSObject <IGListAdapterDataSource>
+@interface IGListTestAdapterStoryboardDataSource : NSObject <IGSTListAdapterDataSource>
 
 // array of numbers which is then passed to -[IGListTestSection setItems:]
 @property (nonatomic, strong) NSArray <NSNumber *> *objects;

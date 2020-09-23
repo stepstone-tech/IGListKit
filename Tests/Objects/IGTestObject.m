@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestObject.h"
+#import "IGSTTestObject.h"
 
 @implementation IGTestObject
 
@@ -24,7 +24,7 @@
 }
 
 
-#pragma mark - IGListDiffable
+#pragma mark - IGSTListDiffable
 
 - (id<NSObject>)diffIdentifier {
     return self.key;

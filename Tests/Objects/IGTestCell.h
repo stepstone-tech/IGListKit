@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListBindable.h>
+#import <IGListKitStSt/IGSTListBindable.h>
 
-@interface IGTestCell : UICollectionViewCell <IGListBindable>
+@interface IGTestCell : UICollectionViewCell <IGSTListBindable>
 
 @property (nonatomic, weak) id delegate;
 @property (nonatomic, strong) IBOutlet UILabel *label;

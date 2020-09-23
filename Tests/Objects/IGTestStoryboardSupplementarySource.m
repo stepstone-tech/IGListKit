@@ -7,8 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestStoryboardSupplementarySource.h"
-#import "IGTestStoryboardSupplementaryView.h"
+#import "IGSTTestStoryboardSupplementarySource.h"
+#import "IGSTTestStoryboardSupplementaryView.h"
 
 @implementation IGTestStoryboardSupplementarySource
 

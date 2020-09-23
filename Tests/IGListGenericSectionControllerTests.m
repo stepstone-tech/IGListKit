@@ -9,16 +9,16 @@
 
 #import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListGenericSectionController.h>
+#import <IGListKitStSt/IGSTListGenericSectionController.h>
 
-@interface IGListGenericSectionControllerTests : XCTestCase
+@interface IGSTListGenericSectionControllerTests : XCTestCase
 
 @end
 
-@implementation IGListGenericSectionControllerTests
+@implementation IGSTListGenericSectionControllerTests
 
 - (void)test_whenUpdatingToObject_thatSameObjectIsStored {
-    IGListGenericSectionController<NSString *> *controller = [IGListGenericSectionController new];
+    IGSTListGenericSectionController<NSString *> *controller = [IGSTListGenericSectionController new];
     NSString *foo = @"foo";
     [controller didUpdateToObject:foo];
     XCTAssertEqual(controller.object, foo);

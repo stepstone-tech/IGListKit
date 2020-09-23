@@ -7,9 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestSupplementarySource.h"
+#import "IGSTTestSupplementarySource.h"
 
-#import "IGTestNibSupplementaryView.h"
+#import "IGSTTestNibSupplementaryView.h"
 
 @implementation IGTestSupplementarySource
 
@@ -20,7 +20,7 @@
     return self;
 }
 
-#pragma mark - IGListSupplementaryViewSource
+#pragma mark - IGSTListSupplementaryViewSource
 
 - (UICollectionReusableView *)viewForSupplementaryElementOfKind:(NSString *)elementKind
                                                         atIndex:(NSInteger)index {

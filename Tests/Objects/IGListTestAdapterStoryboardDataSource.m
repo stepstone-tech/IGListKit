@@ -7,24 +7,24 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestAdapterStoryboardDataSource.h"
+#import "IGSTListTestAdapterStoryboardDataSource.h"
 
-#import <IGListKit/IGListAdapter.h>
+#import <IGListKitStSt/IGSTListAdapter.h>
 
-#import "IGListTestStoryboardSection.h"
+#import "IGSTListTestStoryboardSection.h"
 
 @implementation IGListTestAdapterStoryboardDataSource
 
-- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGSTListSectionController *)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerForObject:(id)object {
     IGListTestStoryboardSection *list = [[IGListTestStoryboardSection alloc] init];
     return list;
 }
 
-- (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
+- (nullable UIView *)emptyViewForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.backgroundView;
 }
 

@@ -7,20 +7,20 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestAdapterDataSource.h"
+#import "IGSTListTestAdapterDataSource.h"
 
-#import <IGListKit/IGListAdapter.h>
+#import <IGListKitStSt/IGSTListAdapter.h>
 
-#import "IGListTestSection.h"
-#import "IGListTestContainerSizeSection.h"
+#import "IGSTListTestSection.h"
+#import "IGSTListTestContainerSizeSection.h"
 
 @implementation IGListTestAdapterDataSource
 
-- (NSArray *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+- (NSArray *)objectsForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.objects;
 }
 
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+- (IGSTListSectionController *)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerForObject:(id)object {
     if ([object isKindOfClass:[NSNumber class]]) {
         if ([(NSNumber*)object  isEqual: @42]) {
             return [IGListTestContainerSizeSection new];
@@ -30,7 +30,7 @@
     return nil;
 }
 
-- (nullable UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
+- (nullable UIView *)emptyViewForListAdapter:(IGSTListAdapter *)listAdapter {
     return self.backgroundView;
 }
 

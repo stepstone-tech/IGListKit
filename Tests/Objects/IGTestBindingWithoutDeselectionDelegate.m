@@ -7,11 +7,11 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestBindingWithoutDeselectionDelegate.h"
+#import "IGSTTestBindingWithoutDeselectionDelegate.h"
 
 @implementation IGTestBindingWithoutDeselectionDelegate
 
-- (void)sectionController:(IGListBindingSectionController *)sectionController didSelectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
+- (void)sectionController:(IGSTListBindingSectionController *)sectionController didSelectItemAtIndex:(NSInteger)index viewModel:(id)viewModel {
     self.selected = YES;
 }
 

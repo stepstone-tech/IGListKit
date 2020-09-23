@@ -11,20 +11,20 @@
 
 #import <OCMock/OCMock.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-#import "IGListAdapterProxy.h"
+#import "IGSTListAdapterProxy.h"
 
-@interface IGListAdapterProxyTests : XCTestCase
+@interface IGSTListAdapterProxyTests : XCTestCase
 
 @end
 
-@implementation IGListAdapterProxyTests
+@implementation IGSTListAdapterProxyTests
 
 - (void)test_whenSendingInterceptedMethod_thatAdapterReceivesMethod {
-    id mockAdapter = [OCMockObject mockForClass:[IGListAdapter class]];
+    id mockAdapter = [OCMockObject mockForClass:[IGSTListAdapter class]];
     id mockCollectionViewDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
-    IGListAdapterProxy *proxy = [[IGListAdapterProxy alloc] initWithCollectionViewTarget:mockCollectionViewDelegate scrollViewTarget:nil interceptor:mockAdapter];
+    IGSTListAdapterProxy *proxy = [[IGSTListAdapterProxy alloc] initWithCollectionViewTarget:mockCollectionViewDelegate scrollViewTarget:nil interceptor:mockAdapter];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
     NSIndexPath *indexPath = [NSIndexPath new];
 
@@ -38,9 +38,9 @@
 }
 
 - (void)test_whenSendingCollectionViewDelegateMethod_thatCollectionViewDelegateReceivesMethod {
-    id mockAdapter = [OCMockObject mockForClass:[IGListAdapter class]];
+    id mockAdapter = [OCMockObject mockForClass:[IGSTListAdapter class]];
     id mockCollectionViewDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
-    IGListAdapterProxy *proxy = [[IGListAdapterProxy alloc] initWithCollectionViewTarget:mockCollectionViewDelegate scrollViewTarget:nil interceptor:mockAdapter];
+    IGSTListAdapterProxy *proxy = [[IGSTListAdapterProxy alloc] initWithCollectionViewTarget:mockCollectionViewDelegate scrollViewTarget:nil interceptor:mockAdapter];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
     NSIndexPath *indexPath = [NSIndexPath new];
 
@@ -54,10 +54,10 @@
 }
 
 - (void)test_whenSendingScrollViewDelegateMethod_whenNoCollectionViewDelegate_thatScrollViewDelegateReceivesMethod {
-    id mockAdapter = [OCMockObject mockForClass:[IGListAdapter class]];
+    id mockAdapter = [OCMockObject mockForClass:[IGSTListAdapter class]];
     id mockCollectionViewDelegate = [OCMockObject mockForProtocol:@protocol(UICollectionViewDelegate)];
     id mockScrollViewDelegate = [OCMockObject mockForProtocol:@protocol(UIScrollViewDelegate)];
-    IGListAdapterProxy *proxy = [[IGListAdapterProxy alloc] initWithCollectionViewTarget:mockCollectionViewDelegate scrollViewTarget:mockScrollViewDelegate interceptor:mockAdapter];
+    IGSTListAdapterProxy *proxy = [[IGSTListAdapterProxy alloc] initWithCollectionViewTarget:mockCollectionViewDelegate scrollViewTarget:mockScrollViewDelegate interceptor:mockAdapter];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
 
     // method is not intercepted and should be sent to the appropriate delegate
@@ -72,8 +72,8 @@
 }
 
 - (void)test_whenSendingUnimplementedSelector_thatNothingBreaks {
-    id mockAdapter = [OCMockObject mockForClass:[IGListAdapter class]];
-    IGListAdapterProxy *proxy = [[IGListAdapterProxy alloc] initWithCollectionViewTarget:nil scrollViewTarget:nil interceptor:mockAdapter];
+    id mockAdapter = [OCMockObject mockForClass:[IGSTListAdapter class]];
+    IGSTListAdapterProxy *proxy = [[IGSTListAdapterProxy alloc] initWithCollectionViewTarget:nil scrollViewTarget:nil interceptor:mockAdapter];
 
     // this will try to forward a method to nil since there are no targets set
     // verify that this fails silently

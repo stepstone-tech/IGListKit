@@ -9,11 +9,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
 @class IGTestObject;
 
-@interface IGTestDelegateController : IGListSectionController <IGListDisplayDelegate, IGListWorkingRangeDelegate>
+@interface IGTestDelegateController : IGSTListSectionController <IGSTListDisplayDelegate, IGSTListWorkingRangeDelegate>
 
 @property (nonatomic, strong) IGTestObject *item;
 

@@ -10,17 +10,17 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-#import "IGListAdapterInternal.h"
-#import "IGListDisplayHandler.h"
-#import "IGListTestAdapterDataSource.h"
-#import "IGListTestSection.h"
+#import "IGSTListAdapterInternal.h"
+#import "IGSTListDisplayHandler.h"
+#import "IGSTListTestAdapterDataSource.h"
+#import "IGSTListTestSection.h"
 
-@interface IGListDisplayHandlerTests : XCTestCase
+@interface IGSTListDisplayHandlerTests : XCTestCase
 
-@property (nonatomic, strong) IGListDisplayHandler *displayHandler;
-@property (nonatomic, strong) IGListAdapter *adapter;
+@property (nonatomic, strong) IGSTListDisplayHandler *displayHandler;
+@property (nonatomic, strong) IGSTListAdapter *adapter;
 @property (nonatomic, strong) id mockDisplayDelegate;
 @property (nonatomic, strong) id mockAdapterDelegate;
 @property (nonatomic, strong) id mockAdapterDataSource;
@@ -29,22 +29,22 @@
 
 @end
 
-@implementation IGListDisplayHandlerTests
+@implementation IGSTListDisplayHandlerTests
 
 - (void)setUp {
     [super setUp];
 
     self.list = [[IGListTestSection alloc] init];
     self.object = [[NSObject alloc] init];
-    self.displayHandler = [[IGListDisplayHandler alloc] init];
+    self.displayHandler = [[IGSTListDisplayHandler alloc] init];
     UICollectionView *collectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
-    self.mockAdapterDataSource = [OCMockObject niceMockForProtocol:@protocol(IGListAdapterDataSource)];
-    IGListAdapterUpdater *updater = [IGListAdapterUpdater new];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:nil];
+    self.mockAdapterDataSource = [OCMockObject niceMockForProtocol:@protocol(IGSTListAdapterDataSource)];
+    IGSTListAdapterUpdater *updater = [IGSTListAdapterUpdater new];
+    self.adapter = [[IGSTListAdapter alloc] initWithUpdater:updater viewController:nil];
     self.adapter.collectionView = collectionView;
     self.adapter.dataSource = self.mockAdapterDataSource;
-    self.mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
-    self.mockAdapterDelegate = [OCMockObject mockForProtocol:@protocol(IGListAdapterDelegate)];
+    self.mockDisplayDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
+    self.mockAdapterDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListAdapterDelegate)];
 }
 
 - (void)tearDown {

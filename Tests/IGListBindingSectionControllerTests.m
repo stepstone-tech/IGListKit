@@ -10,24 +10,24 @@
 #import <XCTest/XCTest.h>
 
 #import <OCMock/OCMock.h>
-#import <IGListKit/IGListKit.h>
+#import <IGListKitStSt/IGListKitStSt.h>
 
-#import "IGTestDiffingDataSource.h"
-#import "IGTestDiffingObject.h"
-#import "IGTestDiffingSectionController.h"
-#import "IGTestStringBindableCell.h"
-#import "IGTestNumberBindableCell.h"
-#import "IGListAdapterInternal.h"
-#import "IGTestObject.h"
-#import "IGTestCell.h"
-#import "IGListTestCase.h"
-#import "IGTestBindingWithoutDeselectionDelegate.h"
+#import "IGSTTestDiffingDataSource.h"
+#import "IGSTTestDiffingObject.h"
+#import "IGSTTestDiffingSectionController.h"
+#import "IGSTTestStringBindableCell.h"
+#import "IGSTTestNumberBindableCell.h"
+#import "IGSTListAdapterInternal.h"
+#import "IGSTTestObject.h"
+#import "IGSTTestCell.h"
+#import "IGSTListTestCase.h"
+#import "IGSTTestBindingWithoutDeselectionDelegate.h"
 
-@interface IGListBindingSectionControllerTests : IGListTestCase
+@interface IGSTListBindingSectionControllerTests : IGListTestCase
 
 @end
 
-@implementation IGListBindingSectionControllerTests
+@implementation IGSTListBindingSectionControllerTests
 
 - (void)setUp {
     self.dataSource = [IGTestDiffingDataSource new];
@@ -155,7 +155,7 @@
 
     // "fake" batch updates to make sure that calling reload triggers a diffed batch update
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self.adapter performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext){} completion:^(BOOL finished) {
+    [self.adapter performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext){} completion:^(BOOL finished) {
         IGTestStringBindableCell *batchedCell00 = [self cellAtSection:0 item:0];
         IGTestNumberBindableCell *batchedCell01 = [self cellAtSection:0 item:1];
         IGTestStringBindableCell *batchedCell02 = [self cellAtSection:0 item:2];

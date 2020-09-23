@@ -10,16 +10,16 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import "IGListAdapterInternal.h"
-#import "IGTestCell.h"
-#import "IGTestSingleItemDataSource.h"
-#import "IGListTestCase.h"
+#import "IGSTListAdapterInternal.h"
+#import "IGSTTestCell.h"
+#import "IGSTTestSingleItemDataSource.h"
+#import "IGSTListTestCase.h"
 
-@interface IGListSingleSectionControllerTests : IGListTestCase
+@interface IGSTListSingleSectionControllerTests : IGListTestCase
 
 @end
 
-@implementation IGListSingleSectionControllerTests
+@implementation IGSTListSingleSectionControllerTests
 
 - (void)setUp {
     self.dataSource = [IGTestSingleItemDataSource new];
@@ -93,8 +93,8 @@
     [self setupWithObjects:@[
                              genTestObject(@1, @"a")
                              ]];
-    IGListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListSingleSectionControllerDelegate)];
+    IGSTListSingleSectionController *section = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListSingleSectionControllerDelegate)];
     section.selectionDelegate = mockDelegate;
     [[mockDelegate expect] didSelectSectionController:section withObject:self.dataSource.objects.firstObject];
     [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];

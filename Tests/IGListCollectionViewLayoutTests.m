@@ -9,17 +9,17 @@
 
 #import <XCTest/XCTest.h>
 
-#import <IGListKit/IGListCollectionViewLayout.h>
+#import <IGListKitStSt/IGSTListCollectionViewLayout.h>
 
-#import "IGListCollectionViewLayoutInternal.h"
-#import "IGLayoutTestDataSource.h"
-#import "IGLayoutTestItem.h"
-#import "IGLayoutTestSection.h"
-#import "IGListTestHelpers.h"
+#import "IGSTListCollectionViewLayoutInternal.h"
+#import "IGSTLayoutTestDataSource.h"
+#import "IGSTLayoutTestItem.h"
+#import "IGSTLayoutTestSection.h"
+#import "IGSTListTestHelpers.h"
 
-@interface IGListCollectionViewLayoutTests : XCTestCase
+@interface IGSTListCollectionViewLayoutTests : XCTestCase
 
-@property (nonatomic, strong) IGListCollectionViewLayout *layout;
+@property (nonatomic, strong) IGSTListCollectionViewLayout *layout;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGLayoutTestDataSource *dataSource;
 
@@ -27,7 +27,7 @@
 
 static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 
-@implementation IGListCollectionViewLayoutTests
+@implementation IGSTListCollectionViewLayoutTests
 
 - (UICollectionViewCell *)cellForSection:(NSInteger)section item:(NSInteger)item {
     return [self.collectionView cellForItemAtIndexPath:genIndexPath(section, item)];
@@ -46,7 +46,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
 }
 
 - (void)setUpWithStickyHeaders:(BOOL)sticky scrollDirection:(UICollectionViewScrollDirection)scrollDirection topInset:(CGFloat)inset stretchToEdge:(BOOL)stretchToEdge {
-    self.layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:sticky scrollDirection:scrollDirection topContentInset:inset stretchToEdge:stretchToEdge];
+    self.layout = [[IGSTListCollectionViewLayout alloc] initWithStickyHeaders:sticky scrollDirection:scrollDirection topContentInset:inset stretchToEdge:stretchToEdge];
     self.dataSource = [IGLayoutTestDataSource new];
     self.collectionView = [[UICollectionView alloc] initWithFrame:kTestFrame collectionViewLayout:self.layout];
     self.collectionView.dataSource = self.dataSource;
@@ -299,7 +299,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                             ]];
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
-    const CGRect rect = IGListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
+    const CGRect rect = IGSTListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
     IGAssertEqualFrame([self cellForSection:0 item:1].frame, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     IGAssertEqualFrame([self cellForSection:0 item:2].frame, 67, 0, 33, 33);
 }
@@ -416,7 +416,7 @@ static const CGRect kTestFrame = (CGRect){{0, 0}, {100, 100}};
                             ]];
     XCTAssertEqual(self.collectionView.contentSize.height, 33);
     IGAssertEqualFrame([self cellForSection:0 item:0].frame, 0, 0, 33, 33);
-    const CGRect rect = IGListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
+    const CGRect rect = IGSTListRectIntegralScaled(CGRectMake(33.5, 0, 33, 33));
     IGAssertEqualFrame([self cellForSection:1 item:0].frame, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     IGAssertEqualFrame([self cellForSection:2 item:0].frame, 67, 0, 33, 33);
 }

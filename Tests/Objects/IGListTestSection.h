@@ -9,10 +9,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListSectionController.h>
+#import <IGListKitStSt/IGSTListSectionController.h>
 
 
-@interface IGListTestSection : IGListSectionController
+@interface IGListTestSection : IGSTListSectionController
 
 @property (nonatomic, assign) NSInteger items;
 @property (nonatomic, assign) CGSize size;

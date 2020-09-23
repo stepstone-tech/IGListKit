@@ -10,35 +10,35 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import <IGListKit/IGListKit.h>
-#import <IGListKit/IGListReloadDataUpdater.h>
+#import <IGListKitStSt/IGListKitStSt.h>
+#import <IGListKitStSt/IGSTListReloadDataUpdater.h>
 
-#import "IGListAdapterInternal.h"
-#import "IGListDisplayHandler.h"
-#import "IGListStackedSectionControllerInternal.h"
-#import "IGListTestSection.h"
-#import "IGListTestContainerSizeSection.h"
-#import "IGTestCell.h"
-#import "IGTestStackedDataSource.h"
-#import "IGTestStoryboardCell.h"
-#import "IGTestStoryboardViewController.h"
-#import "IGTestSupplementarySource.h"
-#import "IGTestSupplementarySource.h"
-#import "IGTestStoryboardSupplementarySource.h"
-#import "IGListTestHelpers.h"
+#import "IGSTListAdapterInternal.h"
+#import "IGSTListDisplayHandler.h"
+#import "IGSTListStackedSectionControllerInternal.h"
+#import "IGSTListTestSection.h"
+#import "IGSTListTestContainerSizeSection.h"
+#import "IGSTTestCell.h"
+#import "IGSTTestStackedDataSource.h"
+#import "IGSTTestStoryboardCell.h"
+#import "IGSTTestStoryboardViewController.h"
+#import "IGSTTestSupplementarySource.h"
+#import "IGSTTestSupplementarySource.h"
+#import "IGSTTestStoryboardSupplementarySource.h"
+#import "IGSTListTestHelpers.h"
 
 static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
-@interface IGListStackSectionControllerTests : XCTestCase
+@interface IGSTListStackSectionControllerTests : XCTestCase
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) IGListAdapter *adapter;
+@property (nonatomic, strong) IGSTListAdapter *adapter;
 @property (nonatomic, strong) IGTestStackedDataSource *dataSource;
 
 @end
 
-@implementation IGListStackSectionControllerTests
+@implementation IGSTListStackSectionControllerTests
 
 - (void)setUp {
     [super setUp];
@@ -56,7 +56,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     self.collectionView.frame = kStackTestFrame;
 
     self.dataSource = [[IGTestStackedDataSource alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:nil workingRangeSize:1];
+    self.adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListAdapterUpdater new] viewController:nil workingRangeSize:1];
 }
 
 - (void)tearDown {
@@ -86,7 +86,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListTestSection *section4 = [[IGListTestSection alloc] init];
     section4.items = 1;
 
-    IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
+    IGSTListStackedSectionController *stack = [[IGSTListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
     [stack reloadData];
     
     XCTAssertEqual([stack numberOfItems], 6);
@@ -102,7 +102,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListTestSection *section4 = [[IGListTestSection alloc] init];
     section4.items = 1;
 
-    IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
+    IGSTListStackedSectionController *stack = [[IGSTListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
     [stack reloadData];
     
     XCTAssertEqualObjects([stack sectionControllerForObjectIndex:0], section1);
@@ -123,7 +123,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGListTestSection *section4 = [[IGListTestSection alloc] init];
     section4.items = 1;
 
-    IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
+    IGSTListStackedSectionController *stack = [[IGSTListStackedSectionController alloc] initWithSectionControllers:@[section1, section2, section3, section4]];
     [stack reloadData];
 
     XCTAssertEqual([stack offsetForSectionController:section1], 0);
@@ -133,13 +133,13 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 }
 
 
-#pragma mark - IGListCollectionContext
+#pragma mark - IGSTListCollectionContext
 
 - (void)test_whenReloadingStack_thatSectionControllerContainerMatchesCollectionView {
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1]]
                              ]];
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListTestSection *section1 = stack.sectionControllers[0];
     XCTAssertTrue(CGSizeEqualToSize([section1.collectionContext containerSize], kStackTestFrame.size));
 }
@@ -148,7 +148,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@42]]
                              ]];
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListTestContainerSizeSection *section1 = stack.sectionControllers[0];
     IGAssertEqualSize([stack containerSizeForSectionController:section1], 98, 98);
 }
@@ -158,7 +158,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@42]]
                              ]];
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListTestContainerSizeSection *section1 = stack.sectionControllers[0];
     const UIEdgeInsets inset = [section1.collectionContext containerInset];
     XCTAssertEqual(inset.top, 1);
@@ -172,7 +172,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@42]]
                              ]];
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     IGListTestContainerSizeSection *section1 = stack.sectionControllers[0];
     const CGSize size = [section1.collectionContext insetContainerSize];
     XCTAssertEqual(size.width, 94);
@@ -184,7 +184,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @1, @2]]
                              ]];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
 
     IGListTestSection *section1 = stack.sectionControllers[0];
     UICollectionViewCell *cell1 = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
@@ -208,7 +208,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@0 value:@[@1, @1, @2]]
                              ]];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
 
     IGListTestSection *section1 = stack.sectionControllers[0];
     UICollectionViewCell *cell1 = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
@@ -233,8 +233,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@1 value:@[@1, @1]]
                              ]];
 
-    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    IGListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     IGListTestSection *section11 = stack1.sectionControllers[0];
     IGListTestSection *section12 = stack1.sectionControllers[1];
@@ -257,9 +257,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     self.adapter.collectionView = mockCollectionView;
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
-    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGSTListBatchContext)];
     stack.forwardingBatchContext = mockBatchContext;
     
     IGListTestSection *section2 = stack.sectionControllers[1];
@@ -277,9 +277,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     self.adapter.collectionView = mockCollectionView;
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
-    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGSTListBatchContext)];
     stack.forwardingBatchContext = mockBatchContext;
     
     IGListTestSection *section2 = stack.sectionControllers[1];
@@ -300,9 +300,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     self.adapter.collectionView = mockCollectionView;
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
-    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGSTListBatchContext)];
     stack.forwardingBatchContext = mockBatchContext;
     
     IGListTestSection *section2 = stack.sectionControllers[1];
@@ -323,9 +323,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     id mockCollectionView = [OCMockObject niceMockForClass:[UICollectionView class]];
     self.adapter.collectionView = mockCollectionView;
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
-    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGListBatchContext)];
+    id mockBatchContext = [OCMockObject mockForProtocol:@protocol(IGSTListBatchContext)];
     stack.forwardingBatchContext = mockBatchContext;
     
     IGListTestSection *section2 = stack.sectionControllers[1];
@@ -340,8 +340,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 }
 
 - (void)test_whenDisplayingCell_thatEventsForwardedToSectionControllers {
-    id mock1Delegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
-    id mock2Delegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    id mock1Delegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
+    id mock2Delegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
     IGListTestSection *section1 = [[IGListTestSection alloc] init];
     section1.items = 2;
     section1.displayDelegate = mock1Delegate;
@@ -356,8 +356,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [[mock1Delegate expect] listAdapter:self.adapter willDisplaySectionController:section1 cell:cell2 atIndex:1];
     [[mock2Delegate reject] listAdapter:self.adapter willDisplaySectionController:section2];
 
-    IGListDisplayHandler *display = [[IGListDisplayHandler alloc] init];
-    IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
+    IGSTListDisplayHandler *display = [[IGSTListDisplayHandler alloc] init];
+    IGSTListStackedSectionController *stack = [[IGSTListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
     [stack reloadData];
 
     [display willDisplayCell:cell1 forListAdapter:self.adapter sectionController:stack object:@"a" indexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
@@ -368,8 +368,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 }
 
 - (void)test_whenEndDisplayingCell_thatEventsForwardedToSectionControllers {
-    id mock1Delegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
-    id mock2Delegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    id mock1Delegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
+    id mock2Delegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
     IGListTestSection *section1 = [[IGListTestSection alloc] init];
     section1.items = 2;
     IGListTestSection *section2 = [[IGListTestSection alloc] init];
@@ -379,8 +379,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     UICollectionViewCell *cell3 = [UICollectionViewCell new];
     UICollectionViewCell *cell4 = [UICollectionViewCell new];
 
-    IGListDisplayHandler *display = [[IGListDisplayHandler alloc] init];
-    IGListStackedSectionController *stack = [[IGListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
+    IGSTListDisplayHandler *display = [[IGSTListDisplayHandler alloc] init];
+    IGSTListStackedSectionController *stack = [[IGSTListStackedSectionController alloc] initWithSectionControllers:@[section1, section2]];
     [stack reloadData];
 
     // display all 4 cells (2 per child section controller)
@@ -415,9 +415,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     self.dataSource.objects = @[obj1];
 
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListDisplayDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListDisplayDelegate)];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:obj2];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:obj2];
 
     IGListTestSection *section1 = stack.sectionControllers[0];
     IGListTestSection *section2 = stack.sectionControllers[1];
@@ -447,7 +447,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@3, @4, @0, @5, @6]]
                              ]];
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
 
     IGListTestSection *section1 = stack.sectionControllers[0];
     IGListTestSection *section2 = stack.sectionControllers[1];
@@ -467,7 +467,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self setupWithObjects:@[
                              [[IGTestObject alloc] initWithKey:@0 value:@[@3, @4, @0, @5, @6]]
                              ]];
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
     
     IGListTestSection *section1 = stack.sectionControllers[0];
     IGListTestSection *section2 = stack.sectionControllers[1];
@@ -518,12 +518,12 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
     IGTestObject *object = self.dataSource.objects[1];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:object];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:object];
     IGListTestSection *section1 = stack.sectionControllers[0];
     IGListTestSection *section2 = stack.sectionControllers[1];
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [section1.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [section1.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         section1.items = 3;
         [batchContext insertInSectionController:section1 atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]];
     } completion:^(BOOL finished2) {
@@ -534,7 +534,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
         [expectation fulfill];
     }];
 
-    [section2.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [section2.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         section2.items = 1;
         [batchContext deleteInSectionController:section2 atIndexes:[NSIndexSet indexSetWithIndex:0]];
     } completion:nil];
@@ -553,9 +553,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
     [self.adapter collectionView:self.collectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:2]];
 
-    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
-    IGListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
+    IGSTListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
 
     XCTAssertTrue([stack0.sectionControllers[0] wasSelected]);
     XCTAssertFalse([stack0.sectionControllers[1] wasSelected]);
@@ -578,9 +578,9 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
     [self.adapter collectionView:self.collectionView didDeselectItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:2]];
 
-    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
-    IGListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
+    IGSTListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack2 = [self.adapter sectionControllerForObject:self.dataSource.objects[2]];
 
     XCTAssertTrue([stack0.sectionControllers[0] wasDeselected]);
     XCTAssertFalse([stack0.sectionControllers[1] wasDeselected]);
@@ -615,10 +615,10 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
                              ]];
 
-    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListScrollDelegate)];
 
-    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
     [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
@@ -643,10 +643,10 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
                              ]];
 
-    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListScrollDelegate)];
 
-    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
     [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
@@ -671,10 +671,10 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
                              ]];
 
-    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListScrollDelegate)];
 
-    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
     [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
@@ -699,10 +699,10 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@2 value:@[@1, @1]]
                              ]];
 
-    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGListScrollDelegate)];
+    id mockScrollDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListScrollDelegate)];
 
-    IGListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
-    IGListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack0 = [self.adapter sectionControllerForObject:self.dataSource.objects[0]];
+    IGSTListStackedSectionController *stack1 = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
 
     [stack0.sectionControllers[0] setScrollDelegate:mockScrollDelegate];
     [stack0.sectionControllers[1] setScrollDelegate:mockScrollDelegate];
@@ -723,7 +723,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 - (void)test_whenUsingSupplementary_withCode_thatSupplementaryViewExists {
     // updater that uses reloadData so we can rebuild all views/sizes
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new] viewController:nil];
 
     self.dataSource.objects = @[
                                 [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
@@ -734,7 +734,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     adapter.dataSource = self.dataSource;
     [self.collectionView layoutIfNeeded];
 
-    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
     IGListTestSection *section = stack.sectionControllers.lastObject;
 
     IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
@@ -755,7 +755,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 - (void)test_whenUsingSupplementary_withNib_thatSupplementaryViewExists {
     // updater that uses reloadData so we can rebuild all views/sizes
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new] viewController:nil];
 
     self.dataSource.objects = @[
                                 [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
@@ -766,7 +766,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     adapter.dataSource = self.dataSource;
     [self.collectionView layoutIfNeeded];
 
-    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
     IGListTestSection *section = stack.sectionControllers.lastObject;
 
     IGTestSupplementarySource *supplementarySource = [IGTestSupplementarySource new];
@@ -788,7 +788,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
 
 - (void)test_whenUsingSupplementary_withStoryboard_thatSupplementaryViewExists {
     // updater that uses reloadData so we can rebuild all views/sizes
-    IGListAdapter *adapter = [[IGListAdapter alloc] initWithUpdater:[IGListReloadDataUpdater new] viewController:nil];
+    IGSTListAdapter *adapter = [[IGSTListAdapter alloc] initWithUpdater:[IGSTListReloadDataUpdater new] viewController:nil];
 
     self.dataSource.objects = @[
                                 [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2, @3]],
@@ -799,7 +799,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     adapter.dataSource = self.dataSource;
     [self.collectionView layoutIfNeeded];
 
-    IGListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack = [adapter sectionControllerForObject:self.dataSource.objects[1]];
     IGListTestSection *section = stack.sectionControllers.lastObject;
 
     IGTestStoryboardSupplementarySource *supplementarySource = [IGTestStoryboardSupplementarySource new];
@@ -828,7 +828,7 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@2 value:@[@4, @5, @6]]
                              ]];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
     IGListTestSection *section = stack.sectionControllers[1];
 
     [section.collectionContext scrollToSectionController:section atIndex:1 scrollPosition:UICollectionViewScrollPositionTop animated:NO];
@@ -848,8 +848,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     [self.collectionView selectItemAtIndexPath:path animated:NO scrollPosition:UICollectionViewScrollPositionTop];
     XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    IGListSectionController *section = stack.sectionControllers.lastObject;
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    IGSTListSectionController *section = stack.sectionControllers.lastObject;
     [section.collectionContext deselectItemAtIndex:0 sectionController:section animated:NO];
     XCTAssertFalse([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
@@ -862,8 +862,8 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     
     NSIndexPath *path = [NSIndexPath indexPathForItem:1 inSection:1];
     
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
-    IGListSectionController *section = stack.sectionControllers.lastObject;
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    IGSTListSectionController *section = stack.sectionControllers.lastObject;
     [section.collectionContext selectItemAtIndex:0 sectionController:section animated:NO scrollPosition:UICollectionViewScrollPositionTop];
     XCTAssertTrue([[self.collectionView cellForItemAtIndexPath:path] isSelected]);
 }
@@ -874,10 +874,10 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@1 value:@[@1, @1]]
                              ]];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.firstObject];
     IGListTestSection *section = stack.sectionControllers.firstObject;
 
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListWorkingRangeDelegate)];
     [[mockDelegate expect] listAdapter:self.adapter sectionControllerDidExitWorkingRange:section];
 
     section.workingRangeDelegate = mockDelegate;
@@ -905,10 +905,10 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
                              [[IGTestObject alloc] initWithKey:@4 value:@[@1, @1]]
                              ]];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects.lastObject];
     IGListTestSection *section = stack.sectionControllers.firstObject;
 
-    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGListWorkingRangeDelegate)];
+    id mockDelegate = [OCMockObject mockForProtocol:@protocol(IGSTListWorkingRangeDelegate)];
     [[mockDelegate expect] listAdapter:self.adapter sectionControllerWillEnterWorkingRange:section];
 
     section.workingRangeDelegate = mockDelegate;
@@ -923,14 +923,14 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     IGTestObject *object = [[IGTestObject alloc] initWithKey:@0 value:@[@1, @2]];
     [self setupWithObjects:@[object]];
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:object];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:object];
     IGListTestSection *section = stack.sectionControllers.lastObject;
 
     XCTAssertEqual([self.collectionView numberOfSections], 1);
     XCTAssertEqual([self.collectionView numberOfItemsInSection:0], 3);
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         section.items = 1;
         [batchContext deleteInSectionController:section atIndexes:[NSIndexSet indexSetWithIndex:1]];
     } completion:^(BOOL finished) {
@@ -952,11 +952,11 @@ static const CGRect kStackTestFrame = (CGRect){{0.0, 0.0}, {100.0, 100.0}};
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
     cell.tag = 42;
 
-    IGListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
+    IGSTListStackedSectionController *stack = [self.adapter sectionControllerForObject:self.dataSource.objects[1]];
     IGListTestSection *section = stack.sectionControllers[1];
 
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [section.collectionContext performBatchAnimated:YES updates:^(id<IGListBatchContext> batchContext) {
+    [section.collectionContext performBatchAnimated:YES updates:^(id<IGSTListBatchContext> batchContext) {
         [batchContext moveInSectionController:section fromIndex:1 toIndex:0];
     } completion:^(BOOL finished) {
         XCTAssertEqual([self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]].tag, 0);

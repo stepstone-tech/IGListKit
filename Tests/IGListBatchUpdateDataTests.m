@@ -9,19 +9,19 @@
 
 #import <XCTest/XCTest.h>
 
-#import "IGListBatchUpdateData.h"
-#import "IGListMoveIndexPathInternal.h"
+#import "IGSTListBatchUpdateData.h"
+#import "IGSTListMoveIndexPathInternal.h"
 
-// IGListMoveIndexInternal.h
-@interface IGListMoveIndex (Private)
+// IGSTListMoveIndexInternal.h
+@interface IGSTListMoveIndex (Private)
 - (instancetype)initWithFrom:(NSInteger)from to:(NSInteger)to;
 @end
 
-@interface IGListBatchUpdateDataTests : XCTestCase
+@interface IGSTListBatchUpdateDataTests : XCTestCase
 
 @end
 
-@implementation IGListBatchUpdateDataTests
+@implementation IGSTListBatchUpdateDataTests
 
 static NSIndexSet *indexSet(NSArray<NSNumber *> *arr) {
     NSMutableIndexSet *set = [NSMutableIndexSet new];
@@ -35,16 +35,16 @@ static NSIndexPath *newPath(NSInteger section, NSInteger item) {
     return [NSIndexPath indexPathForItem:item inSection:section];
 }
 
-static IGListMoveIndexPath *newMovePath(NSInteger fromSection, NSInteger fromItem, NSInteger toSection, NSInteger toItem) {
-    return [[IGListMoveIndexPath alloc] initWithFrom:newPath(fromSection, fromItem) to:newPath(toSection, toItem)];
+static IGSTListMoveIndexPath *newMovePath(NSInteger fromSection, NSInteger fromItem, NSInteger toSection, NSInteger toItem) {
+    return [[IGSTListMoveIndexPath alloc] initWithFrom:newPath(fromSection, fromItem) to:newPath(toSection, toItem)];
 }
 
-static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
-    return [[IGListMoveIndex alloc] initWithFrom:from to:to];
+static IGSTListMoveIndex *newMove(NSInteger from, NSInteger to) {
+    return [[IGSTListMoveIndex alloc] initWithFrom:from to:to];
 }
 
 - (void)test_whenEmptyUpdates_thatResultExists {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+    IGSTListBatchUpdateData *result = [[IGSTListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[]
@@ -54,7 +54,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
 }
 
 - (void)test_whenUpdatesAreClean_thatResultMatches {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[@0, @1])
+    IGSTListBatchUpdateData *result = [[IGSTListBatchUpdateData alloc] initWithInsertSections:indexSet(@[@0, @1])
                                                                            deleteSections:indexSet(@[@5])
                                                                              moveSections:[NSSet setWithArray:@[newMove(3, 4)]]
                                                                          insertIndexPaths:@[newPath(0, 0)]
@@ -66,11 +66,11 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
     XCTAssertEqualObjects(result.insertIndexPaths, @[newPath(0, 0)]);
     XCTAssertEqualObjects(result.deleteIndexPaths, @[newPath(1, 0)]);
     XCTAssertEqual(result.moveIndexPaths.count, 1);
-    XCTAssertEqualObjects(result.moveIndexPaths.firstObject, [[IGListMoveIndexPath alloc] initWithFrom:newPath(6, 0) to:newPath(6, 1)]);
+    XCTAssertEqualObjects(result.moveIndexPaths.firstObject, [[IGSTListMoveIndexPath alloc] initWithFrom:newPath(6, 0) to:newPath(6, 1)]);
 }
 
 - (void)test_whenMovingSections_withItemDeletes_thatResultConvertsConflicts_toDeletesAndInserts {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+    IGSTListBatchUpdateData *result = [[IGSTListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
                                                                          insertIndexPaths:@[]
@@ -83,7 +83,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
 }
 
 - (void)test_whenMovingSections_withItemInserts_thatResultConvertsConflicts_toDeletesAndInserts {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+    IGSTListBatchUpdateData *result = [[IGSTListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 4)]]
                                                                          insertIndexPaths:@[newPath(4, 0), newPath(3, 4)]
@@ -96,7 +96,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
 }
 
 - (void)test_whenMovingIndexPaths_withSectionDeleted_thatResultDropsTheMove {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+    IGSTListBatchUpdateData *result = [[IGSTListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[@0])
                                                                              moveSections:[NSSet new]
                                                                          insertIndexPaths:@[]
@@ -107,7 +107,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
 }
 
 - (void)test_whenMovingIndexPaths_withSectionMoved_thatResultConvertsToDeletesAndInserts {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+    IGSTListBatchUpdateData *result = [[IGSTListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[])
                                                                              moveSections:[NSSet setWithArray:@[newMove(0, 1)]]
                                                                          insertIndexPaths:@[]
@@ -120,7 +120,7 @@ static IGListMoveIndex *newMove(NSInteger from, NSInteger to) {
 }
 
 - (void)test_whenMovingSections_withMoveFromConflictWithDelete_thatResultDropsTheMove {
-    IGListBatchUpdateData *result = [[IGListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
+    IGSTListBatchUpdateData *result = [[IGSTListBatchUpdateData alloc] initWithInsertSections:indexSet(@[])
                                                                            deleteSections:indexSet(@[@2])
                                                                              moveSections:[NSSet setWithArray:@[newMove(2, 6), newMove(0, 2)]]
                                                                          insertIndexPaths:@[]

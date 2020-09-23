@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGListTestCase.h"
+#import "IGSTListTestCase.h"
 
 @implementation IGListTestCase
 
@@ -25,8 +25,8 @@
     self.collectionView = self.collectionView ?: [[UICollectionView alloc] initWithFrame:self.frame
                                                                     collectionViewLayout:self.layout];
     [self.window addSubview:self.collectionView];
-    self.updater = self.updater ?: [IGListAdapterUpdater new];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:self.updater
+    self.updater = self.updater ?: [IGSTListAdapterUpdater new];
+    self.adapter = [[IGSTListAdapter alloc] initWithUpdater:self.updater
                                            viewController:self.viewController
                                          workingRangeSize:self.workingRangeSize];
 }

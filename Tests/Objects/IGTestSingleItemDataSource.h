@@ -9,10 +9,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import <IGListKit/IGListAdapterDataSource.h>
+#import <IGListKitStSt/IGSTListAdapterDataSource.h>
 
-#import "IGTestObject.h"
-#import "IGListTestCase.h"
+#import "IGSTTestObject.h"
+#import "IGSTListTestCase.h"
 
 @interface IGTestSingleItemDataSource : NSObject <IGListTestCaseDataSource>
 

@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <IGListKit/IGListDiffable.h>
+#import <IGListKitStSt/IGSTListDiffable.h>
 
-@interface IGSectionObject : NSObject <IGListDiffable>
+@interface IGSectionObject : NSObject <IGSTListDiffable>
 
 @property (nonatomic, strong) NSArray *objects;
 

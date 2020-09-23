@@ -7,10 +7,10 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "IGTestDelegateController.h"
+#import "IGSTTestDelegateController.h"
 
-#import "IGTestCell.h"
-#import "IGTestObject.h"
+#import "IGSTTestCell.h"
+#import "IGSTTestObject.h"
 
 @implementation IGTestDelegateController
 
@@ -54,41 +54,41 @@
     }
 }
 
-- (id<IGListDisplayDelegate>)displayDelegate {
+- (id<IGSTListDisplayDelegate>)displayDelegate {
     return self;
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {}
 
-#pragma mark - IGListDisplayDelegate
+#pragma mark - IGSTListDisplayDelegate
 
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController {
+- (void)listAdapter:(IGSTListAdapter *)listAdapter willDisplaySectionController:(IGSTListSectionController *)sectionController {
     self.willDisplayCount++;
 }
 
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController {
+- (void)listAdapter:(IGSTListAdapter *)listAdapter didEndDisplayingSectionController:(IGSTListSectionController *)sectionController {
     self.didEndDisplayCount++;
 }
 
-- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController
+- (void)listAdapter:(IGSTListAdapter *)listAdapter willDisplaySectionController:(IGSTListSectionController *)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index {
     [self.willDisplayCellIndexes addObject:@(index)];
 }
-- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController
+- (void)listAdapter:(IGSTListAdapter *)listAdapter didEndDisplayingSectionController:(IGSTListSectionController *)sectionController
                cell:(UICollectionViewCell *)cell
             atIndex:(NSInteger)index {
     [self.didEndDisplayCellIndexes addObject:@(index)];
 }
 
-- (void)listAdapter:(IGListAdapter *)listAdapter didScrollSectionController:(IGListSectionController *)sectionController {}
+- (void)listAdapter:(IGSTListAdapter *)listAdapter didScrollSectionController:(IGSTListSectionController *)sectionController {}
 
-#pragma mark - IGListWorkingRangeDelegate
+#pragma mark - IGSTListWorkingRangeDelegate
 
-- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGListSectionController *)sectionController {
+- (void)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerWillEnterWorkingRange:(IGSTListSectionController *)sectionController {
     __unused UICollectionViewCell *cell = [self.collectionContext cellForItemAtIndex:0 sectionController:self];
 }
 
-- (void)listAdapter:(IGListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGListSectionController *)sectionController {}
+- (void)listAdapter:(IGSTListAdapter *)listAdapter sectionControllerDidExitWorkingRange:(IGSTListSectionController *)sectionController {}
 
 @end
