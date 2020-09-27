@@ -442,7 +442,9 @@ static NSArray<NSIndexPath *> *convertSectionReloadToItemUpdates(NSIndexSet *sec
 static BOOL IGListIsEqual(const void *a, const void *b, NSUInteger (*size)(const void *item)) {
     const id<IGListDiffable, NSObject> left = (__bridge id<IGListDiffable, NSObject>)a;
     const id<IGListDiffable, NSObject> right = (__bridge id<IGListDiffable, NSObject>)b;
-    return [left class] == [right class]
+    return ([left class] == [right class]
+            || [left isKindOfClass:[NSString class]] || [right isKindOfClass:[NSString class]]
+            || [left isKindOfClass:[NSNumber class]] || [right isKindOfClass:[NSNumber class]])
     && [[left diffIdentifier] isEqual:[right diffIdentifier]];
 }
 
